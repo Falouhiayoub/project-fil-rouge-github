@@ -63,7 +63,9 @@
 .product-image {
     height: 250px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #f8f9fa;
+    padding: 1rem;
 }
 
 .product-info {
