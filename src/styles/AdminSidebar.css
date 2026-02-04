@@ -1,0 +1,165 @@
+/* Admin Sidebar Styling */
+.admin-sidebar {
+    background: linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #000000 100%) !important;
+    border-right: 1px solid rgba(152, 37, 152, 0.3) !important;
+    box-shadow: 4px 0 20px rgba(152, 37, 152, 0.4) !important;
+}
+
+.admin-sidebar-list {
+    padding: 1rem 0.5rem !important;
+}
+
+.admin-sidebar-item {
+    margin: 0.5rem 0 !important;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer !important;
+}
+
+.admin-sidebar-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(180deg, #982598, #b84db8);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.admin-sidebar-item:hover::before {
+    transform: scaleY(1);
+}
+
+.admin-sidebar-item:hover {
+    background: rgba(152, 37, 152, 0.15) !important;
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(152, 37, 152, 0.4);
+}
+
+.admin-sidebar-item.selected {
+    background: rgba(152, 37, 152, 0.2) !important;
+    border-left: 4px solid #982598;
+}
+
+.admin-sidebar-item.selected::before {
+    transform: scaleY(1);
+}
+
+.admin-sidebar-item .MuiListItemIcon-root {
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    min-width: 45px !important;
+}
+
+.admin-sidebar-item:hover .MuiListItemIcon-root,
+.admin-sidebar-item.selected .MuiListItemIcon-root {
+    color: #982598;
+    transform: scale(1.15) rotate(5deg);
+}
+
+.admin-sidebar-item .MuiListItemText-primary {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.admin-sidebar-item:hover .MuiListItemText-primary,
+.admin-sidebar-item.selected .MuiListItemText-primary {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Admin AppBar Styling */
+.admin-appbar {
+    background: linear-gradient(90deg, #000000 0%, #1a1a1a 100%) !important;
+    box-shadow: 0 2px 10px rgba(152, 37, 152, 0.5) !important;
+}
+
+.admin-appbar .MuiTypography-root {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #ffffff 0%, #982598 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.admin-logout-btn {
+    border-radius: 8px !important;
+    padding: 8px 20px !important;
+    transition: all 0.3s ease !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.admin-logout-btn:hover {
+    background: rgba(152, 37, 152, 0.2) !important;
+    border-color: #982598 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(152, 37, 152, 0.5) !important;
+}
+
+/* Sidebar Logo/Brand Area */
+.admin-sidebar-brand {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.admin-sidebar-brand-text {
+    color: #982598;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Animated gradient background for selected item */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.admin-sidebar-item.selected {
+    background: linear-gradient(90deg, rgba(152, 37, 152, 0.2), rgba(152, 37, 152, 0.1), rgba(152, 37, 152, 0.2));
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+/* Ripple effect on click */
+.admin-sidebar-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-sidebar-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(152, 37, 152, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.admin-sidebar-item:active::after {
+    width: 300px;
+    height: 300px;
+}
