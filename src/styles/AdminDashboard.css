@@ -1,0 +1,287 @@
+/* Admin Dashboard Stat Cards */
+.stat-card-wrapper {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.stat-card-wrapper:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stat-card-wrapper:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stat-card-wrapper:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card {
+    padding: 2.5rem !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 220px;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+    box-shadow: 0 10px 30px rgba(152, 37, 152, 0.3) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(152, 37, 152, 0.2);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--card-color-start), var(--card-color-end));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.stat-card:hover::before {
+    transform: scaleX(1);
+}
+
+.stat-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(152, 37, 152, 0.5) !important;
+    border-color: rgba(152, 37, 152, 0.5);
+}
+
+.stat-card.primary {
+    --card-color-start: #982598;
+    --card-color-end: #b84db8;
+}
+
+.stat-card.success {
+    --card-color-start: #982598;
+    --card-color-end: #b84db8;
+}
+
+.stat-card.warning {
+    --card-color-start: #982598;
+    --card-color-end: #b84db8;
+}
+
+.stat-icon-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.stat-card:hover .stat-icon-container {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.stat-icon-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.3;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 0;
+    }
+}
+
+.stat-icon-container.primary {
+    background: linear-gradient(135deg, rgba(152, 37, 152, 0.3), rgba(184, 77, 184, 0.4));
+}
+
+.stat-icon-container.success {
+    background: linear-gradient(135deg, rgba(152, 37, 152, 0.3), rgba(184, 77, 184, 0.4));
+}
+
+.stat-icon-container.warning {
+    background: linear-gradient(135deg, rgba(152, 37, 152, 0.3), rgba(184, 77, 184, 0.4));
+}
+
+.stat-icon {
+    font-size: 48px !important;
+    position: relative;
+    z-index: 1;
+    color: #982598 !important;
+}
+
+.stat-content {
+    text-align: center;
+    width: 100%;
+}
+
+.stat-title {
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    color: #b0b0b0 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem !important;
+}
+
+.stat-count {
+    font-size: 2.75rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff 0%, #982598 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: countUp 0.8s ease-out;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .stat-card {
+        min-height: 200px;
+        padding: 2rem !important;
+    }
+
+    .stat-icon-container {
+        width: 80px;
+        height: 80px;
+    }
+
+    .stat-icon {
+        font-size: 40px !important;
+    }
+
+    .stat-count {
+        font-size: 2.25rem !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .stat-card {
+        min-height: 180px;
+        padding: 1.5rem !important;
+    }
+
+    .stat-icon-container {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+        font-size: 36px !important;
+    }
+
+    .stat-count {
+        font-size: 2rem !important;
+    }
+}
+
+/* Chart Container Styles */
+.chart-container {
+    padding: 2rem !important;
+    border-radius: 16px !important;
+    background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+    box-shadow: 0 10px 30px rgba(152, 37, 152, 0.3) !important;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s ease-out;
+    border: 1px solid rgba(152, 37, 152, 0.2);
+}
+
+.chart-container:hover {
+    box-shadow: 0 15px 40px rgba(152, 37, 152, 0.5) !important;
+    transform: translateY(-4px);
+    border-color: rgba(152, 37, 152, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chart-title {
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(152, 37, 152, 0.3);
+}
+
+/* Recharts customization */
+.recharts-wrapper {
+    font-family: 'Inter', sans-serif !important;
+}
+
+.recharts-legend-wrapper {
+    padding-top: 1rem !important;
+}
+
+.recharts-legend-item-text {
+    color: #b0b0b0 !important;
+    font-size: 0.9rem !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+    fill: #b0b0b0 !important;
+    font-size: 0.85rem !important;
+}
+
+@media (max-width: 900px) {
+    .chart-container {
+        padding: 1.5rem !important;
+    }
+}
