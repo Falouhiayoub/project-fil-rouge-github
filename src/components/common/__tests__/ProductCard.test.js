@@ -42,8 +42,9 @@ describe('ProductCard', () => {
     it('dispatches addToCart action when button is clicked', () => {
         const { store } = renderWithRedux(<ProductCard product={mockProduct} />);
 
-        const button = screen.getByRole('button', { name: /add to cart/i });
-        fireEvent.click(button);
+        // Since we have two buttons (Quick Add and icon btn), we use getAllByRole
+        const buttons = screen.getAllByRole('button', { name: /add to cart/i });
+        fireEvent.click(buttons[0]);
 
         // Verify Redux state updated instead of just spying on dispatch (more robust)
         expect(store.getState().cart.items).toHaveLength(1);
