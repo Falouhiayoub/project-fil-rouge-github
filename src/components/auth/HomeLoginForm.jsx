@@ -55,7 +55,7 @@ const HomeLoginForm = () => {
                     required
                 />
                 {error && <Alert severity="error">{error}</Alert>}
-                <Button type="submit" variant="contained" fullWidth size="large">
+                <Button type="submit" variant="contained" fullWidth size="medium">
                     Login
                 </Button>
             </Box>
