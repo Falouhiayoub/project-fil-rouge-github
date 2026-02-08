@@ -40,11 +40,12 @@ const ChatBot = () => {
 
     return (
         <div className="chatbot-container">
-            {!isOpen && (
-                <button className="chatbot-toggle" onClick={() => setIsOpen(true)}>
-                    <span>💬</span>
-                </button>
-            )}
+            <button
+                className={`chatbot-toggle ${isOpen ? 'open' : ''}`}
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                <span>{isOpen ? '✕' : '💬'}</span>
+            </button>
 
             {isOpen && (
                 <div className="chatbot-window">
