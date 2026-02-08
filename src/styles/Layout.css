@@ -1,20 +1,57 @@
-/* Navbar Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: var(--white);
-  box-shadow: var(--shadow-sm);
-  position: sticky;
+  padding: 0.6rem 2rem;
+  background-color: transparent;
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* box-shadow: var(--shadow-sm); */
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.navbar-transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.navbar-transparent:not(.scrolled) .nav-link,
+.navbar-transparent:not(.scrolled) .cart-icon-wrapper span {
+  color: var(--white);
+}
+
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.4rem 2rem;
+}
+
+.navbar.scrolled .nav-link,
+.navbar.scrolled .cart-icon-wrapper span {
+  color: var(--text-color);
+}
+
+.navbar-transparent .nav-link:hover,
+.navbar-transparent .nav-link.active {
+  color: var(--accent-color);
 }
 
 .navbar-logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
+}
+
+.navbar-logo a {
+  background: linear-gradient(135deg, #c084fc 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
 }
 
 .navbar-links {
@@ -43,6 +80,43 @@
 .cart-icon-wrapper {
   position: relative;
   font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.cart-icon-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.login-btn {
+  padding: 0.4rem 1.2rem;
+  background: linear-gradient(135deg, #c084fc 0%, #60a5fa 100%);
+  color: var(--white);
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(192, 132, 252, 0.2);
+  display: inline-block;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(96, 165, 250, 0.3);
+  opacity: 0.95;
+  color: var(--white);
+}
+
+.navbar-transparent:not(.scrolled) .login-btn {
+  background: transparent;
+  border: 2px solid var(--white);
+  box-shadow: none;
+}
+
+.navbar-transparent:not(.scrolled) .login-btn:hover {
+  background: var(--white);
+  color: var(--primary-color);
 }
 
 .cart-count {
@@ -59,7 +133,7 @@
 
 /* Footer Styles */
 .footer {
-  background-color: var(--primary-color);
+  background: linear-gradient(100deg, #a855f7 0%, #6b21a8 100%);
   color: var(--white);
   padding: 3rem 2rem;
   margin-top: auto;
@@ -144,11 +218,84 @@
   }
 
   .login-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
 .menu-toggle {
   display: none;
+}
+
+/* Shared Page Layout */
+.page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: url("../assets/Gemini1.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.page-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  /* Dark overlay for readability */
+  z-index: 1;
+}
+
+/* Page Hero Content (Transparent) */
+.page-hero {
+  min-height: 40vh;
+  /* Reduced height as it shares space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+  padding-top: 100px;
+  /* Reduced padding to fit better */
+  position: relative;
+  z-index: 2;
+  /* Sit on top of overlay */
+}
+
+.page-hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.page-hero p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0 1rem;
+}
+
+/* Ensure content sits above overlay (z-index: 2) */
+.shop-container,
+.about-container,
+.form-container,
+.checkout-grid {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    min-height: 30vh;
+  }
+
+  .page-hero h1 {
+    font-size: 2.5rem;
+  }
 }
