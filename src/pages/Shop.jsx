@@ -22,11 +22,12 @@ const Shop = () => {
     const categories = ['all', 'women', 'men', 'accessories'];
 
     return (
-        <div className="shop-container">
-            <div className="shop-header">
-                <h2>Our Collection</h2>
-                <p>Handpicked items just for you.</p>
+        <div className="page-wrapper">
+            <div className="page-hero">
+                <h1>Our Collection</h1>
+            </div>
 
+            <div className="shop-container">
                 <div className="shop-controls">
                     {categories.map(cat => (
                         <button
@@ -38,12 +39,12 @@ const Shop = () => {
                         </button>
                     ))}
                 </div>
-            </div>
 
-            <div className="products-grid">
-                {filteredItems.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                ))}
+                <div className="products-grid">
+                    {filteredItems.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
             </div>
         </div>
     );

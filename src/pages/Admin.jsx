@@ -20,6 +20,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import '../styles/Forms.css';
+import '../styles/AdminSidebar.css';
 
 import DashboardOverview from '../components/admin/DashboardOverview';
 import ProductList from '../components/admin/ProductList';
@@ -56,36 +57,55 @@ const Admin = () => {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+            <AppBar position="fixed" className="admin-appbar" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar>
                     <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
                         Fashion Fuel Admin
                     </Typography>
-                    <Button color="inherit" onClick={handleLogout} startIcon={<LogoutIcon />}>
+                    <Button className="admin-logout-btn" color="inherit" onClick={handleLogout} startIcon={<LogoutIcon />}>
                         Logout
                     </Button>
                 </Toolbar>
             </AppBar>
             <Drawer
                 variant="permanent"
+                className="admin-sidebar"
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
                     [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
                 }}
+                classes={{ paper: 'admin-sidebar' }}
             >
                 <Toolbar />
+                <Box className="admin-sidebar-brand">
+                    <Typography className="admin-sidebar-brand-text">
+                        Admin Panel
+                    </Typography>
+                </Box>
                 <Box sx={{ overflow: 'auto' }}>
-                    <List>
-                        <ListItem button onClick={() => setCurrentView('overview')} selected={currentView === 'overview'}>
+                    <List className="admin-sidebar-list">
+                        <ListItem
+                            button
+                            onClick={() => setCurrentView('overview')}
+                            className={`admin-sidebar-item ${currentView === 'overview' ? 'selected' : ''}`}
+                        >
                             <ListItemIcon><DashboardIcon /></ListItemIcon>
                             <ListItemText primary="Overview" />
                         </ListItem>
-                        <ListItem button onClick={() => setCurrentView('products')} selected={currentView === 'products'}>
+                        <ListItem
+                            button
+                            onClick={() => setCurrentView('products')}
+                            className={`admin-sidebar-item ${currentView === 'products' ? 'selected' : ''}`}
+                        >
                             <ListItemIcon><InventoryIcon /></ListItemIcon>
                             <ListItemText primary="Products" />
                         </ListItem>
-                        <ListItem button onClick={() => setCurrentView('orders')} selected={currentView === 'orders'}>
+                        <ListItem
+                            button
+                            onClick={() => setCurrentView('orders')}
+                            className={`admin-sidebar-item ${currentView === 'orders' ? 'selected' : ''}`}
+                        >
                             <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
                             <ListItemText primary="Commands (Orders)" />
                         </ListItem>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
 import { validateEmail, validateRequired } from '../utils/validation';
-import '../styles/Forms.css';
+import '../styles/Login.css'; // Import the new specific styles
 
 const Login = () => {
     const navigate = useNavigate();
@@ -64,43 +64,45 @@ const Login = () => {
     };
 
     return (
-        <div className="form-container">
-            <h2 className="form-title">Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label className="form-label" htmlFor="email">Email Address or Username</label>
-                    <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        className="form-input"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="Enter email or 'admin'"
-                    />
-                    {errors.email && <div className="form-error">{errors.email}</div>}
+        <div className="login-page">
+            <div className="login-container">
+                <h2 className="login-title">Welcome Back</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="login-form-group">
+                        <label className="login-label" htmlFor="email">Email or Username</label>
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            className="login-input"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Enter your email"
+                        />
+                        {errors.email && <div className="login-error">{errors.email}</div>}
+                    </div>
+
+                    <div className="login-form-group">
+                        <label className="login-label" htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            className="login-input"
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder="Enter your password"
+                        />
+                        {errors.password && <div className="login-error">{errors.password}</div>}
+                    </div>
+
+                    {loginError && <div className="login-error" style={{ justifyContent: 'center', marginBottom: '1rem' }}>{loginError}</div>}
+
+                    <button type="submit" className="login-btn">Login</button>
+                </form>
+                <div className="login-footer">
+                    <p>Don't have an account? <a href="#">Sign up</a></p>
                 </div>
-
-                <div className="form-group">
-                    <label className="form-label" htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        className="form-input"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Enter your password"
-                    />
-                    {errors.password && <div className="form-error">{errors.password}</div>}
-                </div>
-
-                {loginError && <div className="form-error" style={{ marginBottom: '1rem', textAlign: 'center' }}>{loginError}</div>}
-
-                <button type="submit" className="submit-btn">Login</button>
-            </form>
-            <div className="form-footer">
-                <p>Don't have an account? <a href="#">Sign up</a></p>
             </div>
         </div>
     );

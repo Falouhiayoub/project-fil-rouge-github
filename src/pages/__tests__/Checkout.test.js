@@ -8,21 +8,34 @@ import Checkout from '../Checkout';
 import * as api from '../../services/api';
 import axios from 'axios';
 
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockNavigate,
+}));
+
 // Mock dependencies
 jest.mock('../../services/api');
 jest.mock('axios');
-jest.mock('../../components/features/checkout/CheckoutForm', () => ({ onSubmit }) => (
-    <button data-testid="mock-submit" onClick={() => onSubmit({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@example.com',
-        address: '123 St',
-        city: 'NY',
-        zip: '10001'
-    })}>
-        Submit Order
-    </button>
-));
+jest.mock('../../components/features/checkout/CheckoutForm', () => {
+    return function MockCheckoutForm({ onSubmit }) {
+        return (
+            <button
+                data-testid="mock-submit"
+                onClick={() => onSubmit({
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    email: 'john@example.com',
+                    address: '123 St',
+                    city: 'NY',
+                    zip: '10001'
+                })}
+            >
+                Submit Order
+            </button>
+        );
+    };
+});
 
 const renderWithReduxAndRouter = (
     component,
@@ -43,11 +56,13 @@ const renderWithReduxAndRouter = (
 describe('Checkout Page', () => {
     const mockItems = [{ id: '1', title: 'Product 1', price: 100, quantity: 1 }];
 
-    it('redirects to cart if cart is empty (mocked by testing search for Navigate behavior or just checking if it renders null)', () => {
-        // Since we can't easily test Route redirection here without a fuller setup,
-        // we check if it returns null as per code logic: if (items.length === 0) return null;
-        const { container } = renderWithReduxAndRouter(<Checkout />);
-        expect(container.firstChild).toBeNull();
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it('redirects to cart if cart is empty', () => {
+        renderWithReduxAndRouter(<Checkout />);
+        expect(mockNavigate).toHaveBeenCalledWith('/cart');
     });
 
     it('renders checkout form and order summary when items are present', () => {
@@ -81,7 +96,7 @@ describe('Checkout Page', () => {
             expect(api.createOrder).toHaveBeenCalled();
         });
 
-        expect(screen.getByText(/order confirmed/i)).toBeInTheDocument();
+        expect(screen.getByText(/thank you for your purchase/i)).toBeInTheDocument();
         expect(store.getState().cart.items).toHaveLength(0);
     });
 
