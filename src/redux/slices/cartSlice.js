@@ -60,8 +60,7 @@ const cartSlice = createSlice({
 
 export const { addToCart, removeFromCart, updateQuantity, clearCart } = cartSlice.actions;
 
-// Selector to get total items count
-export const selectCartItemsCount = (state) =>
-    state.cart.items.reduce((total, item) => total + item.quantity, 0);
+// Selector to get unique items count
+export const selectCartItemsCount = (state) => state.cart.items.length;
 
 export default cartSlice.reducer;
