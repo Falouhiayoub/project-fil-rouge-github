@@ -12,14 +12,26 @@ const ProductCard = ({ product }) => {
 
     return (
         <div className="product-card">
-            <img src={product.image} alt={product.title} className="product-image" />
+            <div className="product-image-container">
+                <img src={product.image} alt={product.title} className="product-image" />
+                <div className="product-overlay">
+                    <button onClick={handleAddToCart} className="quick-add-btn" aria-label="Add to cart">
+                        <span>+</span> Quick Add
+                    </button>
+                </div>
+            </div>
             <div className="product-info">
-                <span className="product-category">{product.category}</span>
+                <div className="product-meta">
+                    <span className="product-category">{product.category}</span>
+                    <span className="product-badge">New</span>
+                </div>
                 <h3 className="product-title">{product.title}</h3>
-                <p className="product-price">{formatCurrency(product.price)}</p>
-                <button onClick={handleAddToCart} className="add-to-cart-btn">
-                    Add to Cart
-                </button>
+                <div className="product-footer">
+                    <p className="product-price">{formatCurrency(product.price)}</p>
+                    <button onClick={handleAddToCart} className="add-to-cart-icon-btn" aria-label="Add to cart">
+                        🛒
+                    </button>
+                </div>
             </div>
         </div>
     );
