@@ -18,12 +18,12 @@ describe('ChatBot', () => {
     it('is closed by default', () => {
         render(<ChatBot />);
         expect(screen.queryByPlaceholderText(/ask me anything/i)).not.toBeInTheDocument();
-        expect(screen.getByText('💬')).toBeInTheDocument();
+        expect(screen.getByLabelText('Open Chat')).toBeInTheDocument();
     });
 
     it('opens window when toggle button is clicked', () => {
         render(<ChatBot />);
-        const toggle = screen.getByText('💬');
+        const toggle = screen.getByLabelText('Open Chat');
         fireEvent.click(toggle);
 
         expect(screen.getByText('Fashion AI Fuel')).toBeInTheDocument();
@@ -32,8 +32,8 @@ describe('ChatBot', () => {
 
     it('closes window when close button is clicked', () => {
         render(<ChatBot />);
-        fireEvent.click(screen.getByText('💬')); // Open
-        fireEvent.click(screen.getByText('✕')); // Close
+        fireEvent.click(screen.getByLabelText('Open Chat')); // Open
+        fireEvent.click(screen.getByLabelText('Close Chat Window')); // Close
 
         expect(screen.queryByText('Fashion AI Fuel')).not.toBeInTheDocument();
     });
@@ -42,7 +42,7 @@ describe('ChatBot', () => {
         getAIResponse.mockResolvedValue('Hello from AI!');
 
         render(<ChatBot />);
-        fireEvent.click(screen.getByText('💬')); // Open
+        fireEvent.click(screen.getByLabelText('Open Chat')); // Open
 
         const input = screen.getByPlaceholderText(/ask me anything/i);
         const sendBtn = screen.getByText('➤');
@@ -66,7 +66,7 @@ describe('ChatBot', () => {
     it('handles Enter key to send message', async () => {
         getAIResponse.mockResolvedValue('Response from enter');
         render(<ChatBot />);
-        fireEvent.click(screen.getByText('💬'));
+        fireEvent.click(screen.getByLabelText('Open Chat'));
 
         const input = screen.getByPlaceholderText(/ask me anything/i);
         fireEvent.change(input, { target: { value: 'Trigger enter' } });

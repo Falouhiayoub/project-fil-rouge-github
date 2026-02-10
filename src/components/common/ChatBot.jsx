@@ -43,6 +43,7 @@ const ChatBot = () => {
             <button
                 className={`chatbot-toggle ${isOpen ? 'open' : ''}`}
                 onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? 'Close Chat' : 'Open Chat'}
             >
                 <span>{isOpen ? '✕' : '💬'}</span>
             </button>
@@ -51,7 +52,13 @@ const ChatBot = () => {
                 <div className="chatbot-window">
                     <div className="chatbot-header">
                         <h3>Fashion AI Fuel</h3>
-                        <button className="chatbot-close" onClick={() => setIsOpen(false)}>✕</button>
+                        <button
+                            className="chatbot-close"
+                            onClick={() => setIsOpen(false)}
+                            aria-label="Close Chat Window"
+                        >
+                            ✕
+                        </button>
                     </div>
 
                     <div className="chatbot-messages">
