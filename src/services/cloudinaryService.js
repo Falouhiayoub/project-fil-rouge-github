@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { VITE_CLOUDINARY_CLOUD_NAME } from '../config/env';
 
-const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const CLOUDINARY_CLOUD_NAME = VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = 'fashion_hub_preset';
 
 if (!CLOUDINARY_CLOUD_NAME) {
