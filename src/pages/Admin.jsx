@@ -39,7 +39,7 @@ const Admin = () => {
 
     // Protect the route - only allow logged in admins
     if (!isAuthenticated || role !== 'admin') {
-        return <Navigate to="/" replace />;
+        return <Navigate to="/admin/login" replace />;
     }
 
     const handleLogout = () => {
