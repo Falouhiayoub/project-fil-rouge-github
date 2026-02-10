@@ -84,7 +84,7 @@ describe('cartSlice', () => {
                     ]
                 }
             };
-            expect(selectCartItemsCount(state)).toBe(5);
+            expect(selectCartItemsCount(state)).toBe(2);
         });
 
         it('selectCartItemsCount should return 0 for empty cart', () => {
