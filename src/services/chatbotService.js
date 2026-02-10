@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { VITE_GEMINI_API_KEY } from "../config/env";
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const API_KEY = VITE_GEMINI_API_KEY;
 const genAI = API_KEY ? new GoogleGenerativeAI(API_KEY) : null;
 
 const systemPrompt = `
@@ -17,7 +18,7 @@ export const getAIResponse = async (userMessage) => {
     }
 
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
         // We can also include history here if we want a full chat context, 
         // but for now, we'll keep it simple or use a Chat session.
