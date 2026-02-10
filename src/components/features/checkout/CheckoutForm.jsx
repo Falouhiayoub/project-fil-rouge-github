@@ -9,9 +9,6 @@ const CheckoutForm = ({ onSubmit }) => {
         address: '',
         city: '',
         zip: '',
-        cardNumber: '',
-        expiry: '',
-        cvv: ''
     });
     const [errors, setErrors] = useState({});
 
@@ -26,7 +23,7 @@ const CheckoutForm = ({ onSubmit }) => {
         const newErrors = {};
 
         // Basic validation
-        ['firstName', 'lastName', 'address', 'city', 'zip', 'cardNumber', 'expiry', 'cvv'].forEach(field => {
+        ['firstName', 'lastName', 'address', 'city', 'zip'].forEach(field => {
             if (!validateRequired(formData[field])) {
                 newErrors[field] = 'This field is required';
             }
@@ -82,25 +79,6 @@ const CheckoutForm = ({ onSubmit }) => {
                 </div>
             </div>
 
-            <h3 style={{ margin: '1.5rem 0 1rem' }}>Payment Details</h3>
-            <div className="form-group">
-                <label className="form-label">Card Number</label>
-                <input name="cardNumber" value={formData.cardNumber} onChange={handleChange} className="form-input" placeholder="0000 0000 0000 0000" />
-                {errors.cardNumber && <div className="form-error">{errors.cardNumber}</div>}
-            </div>
-
-            <div className="form-group" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div>
-                    <label className="form-label">Expiry Date</label>
-                    <input name="expiry" value={formData.expiry} onChange={handleChange} className="form-input" placeholder="MM/YY" />
-                    {errors.expiry && <div className="form-error">{errors.expiry}</div>}
-                </div>
-                <div>
-                    <label className="form-label">CVV</label>
-                    <input name="cvv" value={formData.cvv} onChange={handleChange} className="form-input" placeholder="123" />
-                    {errors.cvv && <div className="form-error">{errors.cvv}</div>}
-                </div>
-            </div>
 
             <button type="submit" className="submit-btn">Place Order</button>
         </form>
