@@ -36,9 +36,11 @@ describe('Admin Page', () => {
         }
     };
 
-    it('redirects to home if not authenticated or not admin', () => {
-        // Redirection logic in component: if (!isAuthenticated || role !== 'admin') return <Navigate to="/" replace />;
+    it('redirects to login if not authenticated or not admin', () => {
+        // Redirection logic in component: if (!isAuthenticated || role !== 'admin') return <Navigate to="/admin/login" replace />;
         const { container } = renderWithReduxAndRouter(<Admin />);
+        // When using Navigate component in JSDOM, it might not render anything but would trigger a redirect in a real router
+        // However, the test was expecting null before, and the component returns Navigate which renders null.
         expect(container.firstChild).toBeNull();
     });
 
