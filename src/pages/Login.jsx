@@ -44,13 +44,8 @@ const Login = () => {
 
         const { email, password } = formData;
 
-        // Unified Login Logic
-        if (email === 'admin' && password === 'password123') {
-            // Admin Login
-            dispatch(login({ email, role: 'admin' }));
-            navigate('/admin');
-        } else if (email && password) {
-            // Normal User Login (Mock)
+        // User Login Logic
+        if (email && password) {
             // For now, accept any non-empty credentials that aren't admin
             if (validateEmail(email)) {
                 dispatch(login({ email, role: 'user' }));
