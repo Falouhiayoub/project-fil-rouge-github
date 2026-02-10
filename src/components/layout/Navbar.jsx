@@ -1,13 +1,36 @@
-
-import { Link, NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCartItemsCount } from '../../redux/slices/cartSlice';
 import '../../styles/Layout.css';
 
 const Navbar = () => {
     const cartCount = useSelector(selectCartItemsCount);
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const navbarClasses = [
+        'navbar',
+        isHomePage ? 'navbar-transparent' : '',
+        isScrolled ? 'scrolled' : ''
+    ].join(' ').trim();
+
     return (
-        <nav className="navbar">
+        <nav className={navbarClasses}>
             <div className="navbar-logo">
                 <Link to="/">Fashion Fuel</Link>
             </div>
