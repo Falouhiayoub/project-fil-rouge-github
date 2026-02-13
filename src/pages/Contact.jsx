@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { validateEmail, validateRequired } from '../utils/validation';
-import { VITE_N8N_WEBHOOK_URL_CONTACT_PAGE } from '../config/env';
 import '../styles/Contact.css'; // Import the new styles
 
 const Contact = () => {
@@ -36,7 +35,7 @@ const Contact = () => {
         setLoading(true);
         try {
             // Call n8n webhook for contact form submission
-            const webhookUrl = VITE_N8N_WEBHOOK_URL_CONTACT_PAGE;
+            const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL_CONTACT_PAGE;
             if (webhookUrl) {
                 console.log('Sending contact data to n8n webhook:', formData);
                 const response = await axios.post(webhookUrl, formData);
