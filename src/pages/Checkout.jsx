@@ -6,7 +6,6 @@ import { clearCart } from '../redux/slices/cartSlice';
 import CheckoutForm from '../components/features/checkout/CheckoutForm';
 import { formatCurrency } from '../utils/formatCurrency';
 import { createOrder } from '../services/api';
-import { VITE_N8N_WEBHOOK_URL } from '../config/env';
 import '../styles/Forms.css';
 
 const Checkout = () => {
@@ -41,7 +40,7 @@ const Checkout = () => {
             await createOrder(orderData);
 
             // Call n8n webhook for email confirmation
-            const webhookUrl = VITE_N8N_WEBHOOK_URL;
+            const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
             if (webhookUrl) {
                 try {
                     console.log('Sending order data to n8n webhook:', orderData);
@@ -49,8 +48,6 @@ const Checkout = () => {
                     console.log('n8n Webhook Response:', response.data);
                 } catch (webhookError) {
                     console.error('Error calling n8n webhook:', webhookError.message);
-                    // We don't want to block the user if the webhook fails, 
-                    // since the order was already created in the DB.
                 }
             } else {
                 console.warn('n8n webhook URL is not defined in environment variables.');
