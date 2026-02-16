@@ -1,0 +1,251 @@
+.product-detail-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 1.5rem 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+.product-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.product-breadcrumb a:hover {
+    color: #c084fc;
+}
+
+.product-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.product-detail-image-wrap {
+    min-height: 460px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 2rem;
+    display: grid;
+    place-items: center;
+}
+
+.product-detail-image {
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    object-fit: contain;
+}
+
+.product-detail-content {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 1.5rem;
+    color: #fff;
+}
+
+.product-detail-category {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    color: #c084fc;
+    font-weight: 700;
+}
+
+.product-detail-title {
+    font-size: clamp(1.7rem, 2.3vw, 2.6rem);
+    line-height: 1.2;
+    margin: 0.5rem 0 0.85rem;
+}
+
+.product-detail-price {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.product-detail-summary {
+    margin: 1rem 0 1.4rem;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.variant-block {
+    margin-bottom: 1.15rem;
+}
+
+.variant-label {
+    margin: 0 0 0.65rem;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.size-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.size-item {
+    min-width: 44px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-weight: 600;
+}
+
+.size-item.active {
+    border-color: #60a5fa;
+    background: rgba(96, 165, 250, 0.22);
+}
+
+.color-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+.color-item {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+}
+
+.color-item.active {
+    border-color: #fff;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.75);
+}
+
+.purchase-row {
+    display: flex;
+    gap: 0.8rem;
+    margin: 1.4rem 0 1.1rem;
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    padding: 0.3rem;
+}
+
+.qty-control button {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-weight: 700;
+}
+
+.qty-control span {
+    min-width: 24px;
+    text-align: center;
+}
+
+.add-main-btn {
+    flex: 1;
+    min-height: 44px;
+    border-radius: 999px;
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    background: linear-gradient(135deg, #c084fc 0%, #60a5fa 100%);
+}
+
+.info-tabs {
+    margin-top: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    padding-top: 1rem;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.tab-buttons button {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+}
+
+.tab-buttons .active {
+    border-color: #60a5fa;
+    background: rgba(96, 165, 250, 0.22);
+}
+
+.tab-panel {
+    margin-top: 0.9rem;
+    color: rgba(255, 255, 255, 0.86);
+}
+
+.tab-panel ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.related-products {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 2.25rem;
+}
+
+.related-products h2 {
+    color: #fff;
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    margin: 0 0 1.5rem;
+}
+
+.related-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-error {
+    max-width: 780px;
+    margin: 120px auto 2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    background: rgba(248, 113, 113, 0.14);
+    border: 1px solid rgba(248, 113, 113, 0.34);
+    color: #fecaca;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .product-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 540px) {
+    .product-detail-page {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .purchase-row {
+        flex-direction: column;
+    }
+}

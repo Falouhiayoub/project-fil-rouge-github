@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
 import { validateEmail, validateRequired } from '../utils/validation';
+import { useToast } from '../context/ToastContext';
 import '../styles/Login.css'; // Import the new specific styles
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -49,12 +51,15 @@ const Login = () => {
             // For now, accept any non-empty credentials that aren't admin
             if (validateEmail(email)) {
                 dispatch(login({ email, role: 'user' }));
+                showToast(`Welcome back, ${email}!`);
                 navigate('/'); // Redirect to Home as requested
             } else {
                 setErrors({ email: 'Please enter a valid email for user login' });
+                showToast('Invalid email address', 'error');
             }
         } else {
             setLoginError('Invalid credentials');
+            showToast('Please check your credentials', 'error');
         }
     };
 

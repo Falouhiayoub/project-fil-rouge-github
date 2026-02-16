@@ -25,9 +25,8 @@ const Shop = () => {
         <div className="page-wrapper">
             <div className="page-hero">
                 <h1>Our Collection</h1>
-            </div>
-
-            <div className="shop-container">
+                <p>Discover the latest trends and fuel your fashion passion with our curated styles.</p>
+                
                 <div className="shop-controls">
                     {categories.map(cat => (
                         <button
@@ -39,7 +38,9 @@ const Shop = () => {
                         </button>
                     ))}
                 </div>
+            </div>
 
+            <div className="shop-container">
                 <div className="products-grid">
                     {filteredItems.map((product) => (
                         <ProductCard key={product.id} product={product} />

@@ -39,7 +39,7 @@
 
 .chatbot-window {
     position: absolute;
-    bottom: 90px;
+    bottom: 70px;
     right: 0;
     width: 350px;
     height: 500px;
@@ -102,6 +102,7 @@
     flex: 1;
     padding: 15px;
     overflow-y: auto;
+    scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
     gap: 12px;

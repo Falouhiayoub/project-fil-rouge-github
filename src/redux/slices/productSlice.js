@@ -14,10 +14,24 @@ export const fetchProducts = createAsyncThunk(
     }
 );
 
+// Async thunk to fetch a single product by ID
+export const fetchProductById = createAsyncThunk(
+    'products/fetchProductById',
+    async (id, { rejectWithValue }) => {
+        try {
+            const response = await api.get(`/products/${id}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || error.message);
+        }
+    }
+);
+
 const productSlice = createSlice({
     name: 'products',
     initialState: {
         items: [],
+        selectedProduct: null,
         loading: false,
         error: null,
 
@@ -34,6 +48,9 @@ const productSlice = createSlice({
             } else {
                 state.filteredItems = state.items.filter(item => item.category === category);
             }
+        },
+        clearSelectedProduct: (state) => {
+            state.selectedProduct = null;
         }
     },
     extraReducers: (builder) => {
@@ -50,9 +67,22 @@ const productSlice = createSlice({
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+            })
+            // Handle fetchProductById
+            .addCase(fetchProductById.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchProductById.fulfilled, (state, action) => {
+                state.loading = false;
+                state.selectedProduct = action.payload;
+            })
+            .addCase(fetchProductById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
 
-export const { filterByCategory } = productSlice.actions;
+export const { filterByCategory, clearSelectedProduct } = productSlice.actions;
 export default productSlice.reducer;
