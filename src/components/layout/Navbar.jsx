@@ -1,19 +1,43 @@
-import { useState, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useState, useEffect, useRef } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItemsCount } from '../../redux/slices/cartSlice';
+import { setSearchQuery } from '../../redux/slices/productSlice';
 import '../../styles/Layout.css';
 
 const Navbar = () => {
     const cartCount = useSelector(selectCartItemsCount);
+    const { searchQuery } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     const isHomePage = location.pathname === '/';
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
+    const searchInputRef = useRef(null);
+
+    const handleSearchChange = (e) => {
+        const query = e.target.value;
+        dispatch(setSearchQuery(query));
+        if (location.pathname !== '/shop' && query) {
+            navigate('/shop');
+        }
+    };
+
+    const toggleSearch = () => {
+        setIsSearchVisible(!isSearchVisible);
+        if (!isSearchVisible) {
+            setTimeout(() => searchInputRef.current?.focus(), 100);
+        }
+    };
 
     useEffect(() => {
-        // Close menu on route change
+        // Close menu/search on route change
         setIsMenuOpen(false);
+        if (location.pathname !== '/shop') {
+            setIsSearchVisible(false);
+        }
     }, [location]);
 
     useEffect(() => {
@@ -82,6 +106,22 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-actions">
+                <div className={`search-container ${isSearchVisible ? 'visible' : ''}`}>
+                    <input
+                        ref={searchInputRef}
+                        type="text"
+                        placeholder="Search products..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        className="search-input"
+                    />
+                    <button className="search-toggle-btn" onClick={toggleSearch} aria-label="Toggle search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </button>
+                </div>
+
                 <Link to="/cart" className="cart-icon-wrapper">
                     <svg 
                         className="cart-svg" 
