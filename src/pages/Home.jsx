@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
+import { fetchProducts } from '../redux/slices/productSlice';
+import ProductCard from '../components/common/ProductCard';
+import SEO from '../components/common/SEO';
 // MUI Icons
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ShieldIcon from '@mui/icons-material/Shield';
@@ -13,10 +16,36 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import heroVideo from '../assets/vidéo.mp4';
+import jacketImg from '../assets/jacket.jpg';
+import dressImg from '../assets/dress.jpg';
 import '../styles/Home.css';
 
 const Home = () => {
     const dispatch = useDispatch();
+    const { items } = useSelector((state) => state.products);
+    const { favoriteCategories, recentlyViewedIds } = useSelector((state) => state.userPreference);
+
+    useEffect(() => {
+        if (items.length === 0) {
+            dispatch(fetchProducts());
+        }
+    }, [dispatch, items.length]);
+
+    const personalizedRecommendations = useMemo(() => {
+        if (!items.length) return [];
+        
+        // Find favorite category
+        const sortedCategories = Object.entries(favoriteCategories)
+            .sort(([, a], [, b]) => b - a);
+        
+        if (sortedCategories.length === 0) return [];
+        
+        const topCategory = sortedCategories[0][0];
+        
+        return items
+            .filter(item => item.category === topCategory && !recentlyViewedIds.includes(item.id))
+            .slice(0, 4);
+    }, [items, favoriteCategories, recentlyViewedIds]);
 
     const testimonials = [
         {
@@ -51,35 +80,35 @@ const Home = () => {
             title: "24/7 Support",
             desc: "Always here to help",
             icon: <SupportAgentIcon sx={{ fontSize: 40 }} />,
-            color: "#c084fc" // Purple
+            color: "#c084fc"
         },
         {
             id: 2,
             title: "Secure Payment",
             desc: "100% safe transactions",
             icon: <ShieldIcon sx={{ fontSize: 40 }} />,
-            color: "#60a5fa" // Blue
+            color: "#60a5fa"
         },
         {
             id: 3,
             title: "Best Products",
             desc: "Handpicked quality",
             icon: <WorkspacePremiumIcon sx={{ fontSize: 40 }} />,
-            color: "#fbbf24" // Gold
+            color: "#fbbf24"
         },
         {
             id: 4,
             title: "Fast Delivery",
             desc: "Express shipping",
             icon: <LocalShippingIcon sx={{ fontSize: 40 }} />,
-            color: "#34d399" // Green
+            color: "#34d399"
         },
         {
             id: 5,
             title: "Easy Returns",
             desc: "30-day guarantee",
             icon: <AutorenewIcon sx={{ fontSize: 40 }} />,
-            color: "#f87171" // Red
+            color: "#f87171"
         }
     ];
 
@@ -88,7 +117,7 @@ const Home = () => {
             id: 101,
             name: "Classic Urban Jacket",
             price: 129.99,
-            image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=2000&auto=format&fit=crop",
+            image: jacketImg,
             category: "men"
         },
         {
@@ -167,6 +196,12 @@ const Home = () => {
 
     return (
         <div className="home-container">
+            <SEO
+                title="Premium Apparel & Urban Style"
+                description="Explore the latest trends and timeless classics at Fashion Fuel. Elevate your wardrobe with our handpicked premium collection."
+                url="/"
+            />
+            
             {/* Hero Section */}
             <section className="hero-section">
                 <video
@@ -193,6 +228,25 @@ const Home = () => {
                     </motion.div>
                 </motion.div>
             </section>
+
+            {/* Personalized Recommendations Section */}
+            {personalizedRecommendations.length > 0 && (
+                <section className="featured-products-section recommendations">
+                    <div className="section-header">
+                        <div className="title-with-badge">
+                            <h2 className="creative-title">Recommended For You</h2>
+                            <span className="premium-badge">Just for you</span>
+                        </div>
+                        <Link to="/shop" className="view-all-link">Based on your taste <span>→</span></Link>
+                    </div>
+
+                    <div className="products-grid">
+                        {personalizedRecommendations.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
+                </section>
+            )}
 
             {/* Featured Products Section */}
             <section className="featured-products-section">
