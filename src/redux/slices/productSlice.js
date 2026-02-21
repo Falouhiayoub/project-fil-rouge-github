@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../services/api';
+import Fuse from 'fuse.js';
 
-// Async thunk to fetch products from API
+// Async thunks for products
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async (_, { rejectWithValue }) => {
@@ -34,20 +35,49 @@ const productSlice = createSlice({
         selectedProduct: null,
         loading: false,
         error: null,
-
-        // For filtering (basic implementation)
         filteredItems: [],
-        currentCategory: 'all'
+        currentCategory: 'all',
+        searchQuery: ''
     },
     reducers: {
         filterByCategory: (state, action) => {
             const category = action.payload;
             state.currentCategory = category;
+            state.searchQuery = ''; // Clear search when category changes
             if (category === 'all') {
                 state.filteredItems = state.items;
             } else {
                 state.filteredItems = state.items.filter(item => item.category === category);
             }
+        },
+        setSearchQuery: (state, action) => {
+            const query = action.payload;
+            state.searchQuery = query;
+            
+            if (!query) {
+                // If query is empty, respect the current category filter
+                if (state.currentCategory === 'all') {
+                    state.filteredItems = state.items;
+                } else {
+                    state.filteredItems = state.items.filter(item => item.category === state.currentCategory);
+                }
+                return;
+            }
+
+            // Fuzzy search setup
+            const options = {
+                keys: ['title', 'category', 'description'],
+                threshold: 0.3, // Adjust for sensitivity (0.0 exact, 1.0 matches everything)
+                includeScore: true
+            };
+
+            const sourceItems = state.currentCategory === 'all' 
+                ? state.items 
+                : state.items.filter(item => item.category === state.currentCategory);
+
+            const fuse = new Fuse(sourceItems, options);
+            const results = fuse.search(query);
+            state.filteredItems = results.map(result => result.item);
         },
         clearSelectedProduct: (state) => {
             state.selectedProduct = null;
@@ -84,5 +114,5 @@ const productSlice = createSlice({
     },
 });
 
-export const { filterByCategory, clearSelectedProduct } = productSlice.actions;
+export const { filterByCategory, setSearchQuery, clearSelectedProduct } = productSlice.actions;
 export default productSlice.reducer;

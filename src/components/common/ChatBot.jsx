@@ -1,11 +1,20 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getAIResponse } from '../../services/chatbotService';
+import { addToCart } from '../../redux/slices/cartSlice';
+import { useToast } from '../../context/ToastContext';
+import { formatCurrency } from '../../utils/formatCurrency';
 import '../../styles/ChatBot.css';
 
 const ChatBot = () => {
+    const dispatch = useDispatch();
+    const { showToast } = useToast();
+    const { items: products } = useSelector((state) => state.products);
+    
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
-        { role: 'ai', text: 'Hello! I am your Fashion Fuel assistant. How can I help you today?' }
+        { role: 'ai', text: 'Welcome to Fashion Fuel 2.0! I am your personal style advisor. Need an outfit for a wedding, advice on the latest trends, or help with your budget? Just ask!' }
     ]);
     const [input, setInput] = useState('');
     const [isTyping, setIsTyping] = useState(false);
@@ -16,8 +25,10 @@ const ChatBot = () => {
     };
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages, isTyping]);
+        if (isOpen) {
+            scrollToBottom();
+        }
+    }, [messages, isTyping, isOpen]);
 
     const handleSend = async () => {
         if (!input.trim()) return;
@@ -27,15 +38,69 @@ const ChatBot = () => {
         setInput('');
         setIsTyping(true);
 
-        const aiResText = await getAIResponse(input);
-        setMessages(prev => [...prev, { role: 'ai', text: aiResText }]);
-        setIsTyping(false);
+        // Convert messages to history format for AI
+        const history = messages.map(msg => ({
+            sender: msg.role === 'ai' ? 'model' : 'user',
+            text: msg.text
+        }));
+
+        try {
+            const aiResText = await getAIResponse(input, products, history);
+            setMessages(prev => [...prev, { role: 'ai', text: aiResText }]);
+        } catch (error) {
+            setMessages(prev => [...prev, { role: 'ai', text: "I'm having trouble thinking right now. Please try again later!" }]);
+        } finally {
+            setIsTyping(false);
+        }
     };
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleSend();
         }
+    };
+
+    const MessageContent = ({ text }) => {
+        // Regex to find [PRODUCT:ID]
+        const parts = text.split(/(\[PRODUCT:\d+\])/g);
+        
+        return (
+            <div className="message-text">
+                {parts.map((part, i) => {
+                    const match = part.match(/\[PRODUCT:(\d+)\]/);
+                    if (match) {
+                        const productId = match[1];
+                        const product = products.find(p => p.id === productId);
+                        if (!product) return null;
+
+                        return (
+                            <div key={i} className="chat-product-card">
+                                <img src={product.image} alt={product.title} className="chat-product-img" />
+                                <div className="chat-product-info">
+                                    <h4 className="chat-product-title">{product.title}</h4>
+                                    <p className="chat-product-price">{formatCurrency(product.price)}</p>
+                                    <div className="chat-product-actions">
+                                        <Link to={`/shop/${product.id}`} className="chat-view-btn" onClick={() => setIsOpen(false)}>
+                                            View
+                                        </Link>
+                                        <button 
+                                            className="chat-add-btn" 
+                                            onClick={() => {
+                                                dispatch(addToCart({ ...product, quantity: 1 }));
+                                                showToast(`${product.title} added from chat!`);
+                                            }}
+                                        >
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    }
+                    return <span key={i}>{part}</span>;
+                })}
+            </div>
+        );
     };
 
     return (
@@ -45,17 +110,26 @@ const ChatBot = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label={isOpen ? 'Close Chat' : 'Open Chat'}
             >
-                <span>{isOpen ? '✕' : '💬'}</span>
+                <div className="bot-icon">
+                    {isOpen ? '✕' : (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    )}
+                </div>
             </button>
 
             {isOpen && (
                 <div className="chatbot-window">
                     <div className="chatbot-header">
-                        <h3>Fashion AI Fuel</h3>
+                        <div className="header-info">
+                            <div className="status-dot"></div>
+                            <h3>Style Advisor 2.0</h3>
+                        </div>
+                            aria-label="Close Chat Window"
                         <button
                             className="chatbot-close"
                             onClick={() => setIsOpen(false)}
-                            aria-label="Close Chat Window"
                         >
                             ✕
                         </button>
@@ -64,24 +138,44 @@ const ChatBot = () => {
                     <div className="chatbot-messages">
                         {messages.map((msg, index) => (
                             <div key={index} className={`message ${msg.role}`}>
-                                {msg.text}
+                                <div className="message-avatar">
+                                    {msg.role === 'ai' ? '✨' : '👤'}
+                                </div>
+                                <div className="message-bubble">
+                                    <MessageContent text={msg.text} />
+                                </div>
                             </div>
                         ))}
-                        {isTyping && <div className="typing-indicator ai">AI is thinking...</div>}
+                        {isTyping && (
+                            <div className="message ai">
+                                <div className="message-avatar">✨</div>
+                                <div className="message-bubble typing">
+                                    <div className="dot"></div>
+                                    <div className="dot"></div>
+                                    <div className="dot"></div>
+                                </div>
+                            </div>
+                        )}
                         <div ref={messagesEndRef} />
                     </div>
 
                     <div className="chatbot-input-area">
                         <input
                             type="text"
-                            placeholder="Ask me anything..."
+                            placeholder="Ask for style tips, weather fits, or event advice..."
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyPress={handleKeyPress}
                             disabled={isTyping}
                         />
-                        <button onClick={handleSend} disabled={isTyping || !input.trim()}>
-                            ➤
+                        <button 
+                            className="send-btn"
+                            onClick={handleSend} 
+                            disabled={isTyping || !input.trim()}
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
                         </button>
                     </div>
                 </div>
