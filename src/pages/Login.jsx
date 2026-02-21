@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
 import { validateEmail, validateRequired } from '../utils/validation';
@@ -101,7 +101,7 @@ const Login = () => {
                     <button type="submit" className="login-btn">Login</button>
                 </form>
                 <div className="login-footer">
-                    <p>Don't have an account? <a href="#">Sign up</a></p>
+                    <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
                 </div>
             </div>
         </div>
