@@ -21,10 +21,10 @@ const CartItem = ({ item }) => {
 
     return (
         <div className="cart-item">
-            <img src={item.image} alt={item.title} className="cart-item-image" />
+            <img src={item.image} alt={item.title || item.name} className="cart-item-image" />
 
             <div className="cart-item-details">
-                <h3 className="cart-item-title">{item.title}</h3>
+                <h3 className="cart-item-title">{item.title || item.name}</h3>
                 <p className="cart-item-price">{formatCurrency(item.price)}</p>
             </div>
 
