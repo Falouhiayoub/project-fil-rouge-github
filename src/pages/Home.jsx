@@ -18,6 +18,9 @@ import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import heroVideo from '../assets/vidéo.mp4';
 import jacketImg from '../assets/jacket.jpg';
 import dressImg from '../assets/dress.jpg';
+import mensImg from "../assets/Men's.jpg";
+import hazelImg from '../assets/Hazel.jpg';
+import cargoImg from '../assets/cargo.jpg';
 import '../styles/Home.css';
 
 const Home = () => {
@@ -124,7 +127,7 @@ const Home = () => {
             id: 102,
             name: "Silk Evening Dress",
             price: 199.50,
-            image: "./Black.png",
+            image: dressImg,
             category: "women"
         },
         {
@@ -154,6 +157,41 @@ const Home = () => {
             title: 'Accessories',
             image: 'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=2193&auto=format&fit=crop',
             link: '/shop?category=accessories'
+        }
+    ];
+
+    const newArrivals = [
+        {
+            id: 'new-1',
+            name: "Summer Linen Shirt",
+            price: 75.00,
+            image: mensImg,
+            category: "men",
+            isNew: true
+        },
+        {
+            id: 'new-2',
+            name: "Floral Summer Dress",
+            price: 110.00,
+            image: hazelImg,
+            category: "women",
+            isNew: true
+        },
+        {
+            id: 'new-3',
+            name: "Urban Cargo Pants",
+            price: 95.00,
+            image: cargoImg,
+            category: "men",
+            isNew: true
+        },
+        {
+            id: 'new-4',
+            name: "Gold Minimalist Watch",
+            price: 150.00,
+            image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=2000&auto=format&fit=crop",
+            category: "accessories",
+            isNew: true
         }
     ];
 
@@ -279,7 +317,20 @@ const Home = () => {
                                         onClick={() => handleAddToCart(product)}
                                         title="Add to Cart"
                                     >
-                                        + Add to Cart
+                                        <svg 
+                                            width="18" 
+                                            height="18" 
+                                            viewBox="0 0 24 24" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2" 
+                                            strokeLinecap="round" 
+                                            strokeLinejoin="round"
+                                            className="btn-icon"
+                                        >
+                                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                        </svg>
+                                        Add to Cart
                                     </button>
                                 </div>
                             </div>
@@ -382,6 +433,63 @@ const Home = () => {
                                 <span>View Collection</span>
                             </div>
                         </Link>
+                    ))}
+                </div>
+            </section>
+
+            {/* New Arrivals Section */}
+            <section className="featured-products-section new-arrivals-section">
+                <div className="section-header">
+                    <div className="title-with-badge">
+                        <h2 className="creative-title">New Arrivals</h2>
+                        <span className="premium-badge new-badge">Upcoming</span>
+                    </div>
+                    <Link to="/shop" className="view-all-link">Explore Latest <span>→</span></Link>
+                </div>
+
+                <div className="products-grid">
+                    {newArrivals.map((product) => (
+                        <motion.div
+                            key={product.id}
+                            className="product-flash-card"
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-100px" }}
+                            whileHover={{ y: -10 }}
+                        >
+                            <div className="product-image-container">
+                                <img src={product.image} alt={product.name} />
+                                <div className="product-badge new-arrival-label">Just Arrived</div>
+                            </div>
+                            <div className="product-info">
+                                <span className="product-category-label">{product.category}</span>
+                                <h3>{product.name}</h3>
+                                <div className="product-meta">
+                                    <span className="product-price">${product.price.toFixed(2)}</span>
+                                    <button
+                                        className="quick-add-btn"
+                                        onClick={() => handleAddToCart(product)}
+                                        title="Add to Cart"
+                                    >
+                                        <svg 
+                                            width="18" 
+                                            height="18" 
+                                            viewBox="0 0 24 24" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2" 
+                                            strokeLinecap="round" 
+                                            strokeLinejoin="round"
+                                            className="btn-icon"
+                                        >
+                                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                        </svg>
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
                     ))}
                 </div>
             </section>
