@@ -1,9 +1,9 @@
 .shimmer {
     background: linear-gradient(
         90deg,
-        rgba(255, 255, 255, 0.03) 25%,
-        rgba(255, 255, 255, 0.08) 50%,
-        rgba(255, 255, 255, 0.03) 75%
+        var(--gray-50) 25%,
+        var(--gray-100) 50%,
+        var(--gray-50) 75%
     );
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
@@ -20,19 +20,21 @@
 
 /* Skeleton Card */
 .skeleton-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--gray-200);
     border-radius: 24px;
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow-sm);
 }
 
 .skeleton-image {
     height: 320px;
     width: 100%;
+    background: var(--gray-100);
 }
 
 .skeleton-info {
@@ -45,6 +47,7 @@
     width: 60px;
     margin-bottom: 1rem;
     border-radius: 4px;
+    background: var(--gray-100);
 }
 
 .skeleton-title {
@@ -52,6 +55,7 @@
     width: 90%;
     margin-bottom: 1.25rem;
     border-radius: 4px;
+    background: var(--gray-100);
 }
 
 .skeleton-footer {
@@ -65,12 +69,14 @@
     height: 30px;
     width: 80px;
     border-radius: 4px;
+    background: var(--gray-100);
 }
 
 .skeleton-btn {
     height: 48px;
     width: 48px;
     border-radius: 16px;
+    background: var(--gray-100);
 }
 
 /* Skeleton Detail */
@@ -85,6 +91,7 @@
     width: 200px;
     margin-bottom: 2rem;
     border-radius: 4px;
+    background: var(--gray-100);
 }
 
 .skeleton-main {
@@ -96,6 +103,7 @@
 .skeleton-gallery {
     height: 600px;
     border-radius: 30px;
+    background: var(--gray-100);
 }
 
 .skeleton-info-panel {
@@ -108,12 +116,14 @@
     height: 16px;
     width: 100px;
     border-radius: 4px;
+    background: var(--gray-100);
 }
 
 .skeleton-title-large {
     height: 60px;
     width: 100%;
     border-radius: 8px;
+    background: var(--gray-100);
 }
 
 .skeleton-price-row {
@@ -126,24 +136,28 @@
     height: 50px;
     width: 150px;
     border-radius: 8px;
+    background: var(--gray-100);
 }
 
 .skeleton-badge {
     height: 30px;
     width: 80px;
     border-radius: 20px;
+    background: var(--gray-100);
 }
 
 .skeleton-text {
     height: 16px;
     width: 100%;
     border-radius: 4px;
+    background: var(--gray-100);
 }
 
 .skeleton-selection {
     height: 80px;
     width: 100%;
     border-radius: 12px;
+    background: var(--gray-100);
 }
 
 .skeleton-actions {
@@ -151,6 +165,7 @@
     width: 100%;
     margin: 2rem 0;
     border-radius: 30px;
+    background: var(--gray-100);
 }
 
 @media (max-width: 1024px) {
