@@ -10,13 +10,13 @@
     display: flex;
     align-items: center;
     gap: 0.65rem;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--gray-500);
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
 }
 
 .product-breadcrumb a:hover {
-    color: #c084fc;
+    color: var(--accent-color);
 }
 
 .product-detail-grid {
@@ -28,12 +28,13 @@
 
 .product-detail-image-wrap {
     min-height: 460px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
     border-radius: 20px;
     padding: 2rem;
     display: grid;
     place-items: center;
+    box-shadow: var(--shadow-md);
 }
 
 .product-detail-image {
@@ -44,18 +45,19 @@
 }
 
 .product-detail-content {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
     border-radius: 20px;
     padding: 1.5rem;
-    color: #fff;
+    color: var(--text-color);
+    box-shadow: var(--shadow-md);
 }
 
 .product-detail-category {
     text-transform: uppercase;
     letter-spacing: 0.12em;
     font-size: 0.78rem;
-    color: #c084fc;
+    color: var(--accent-color);
     font-weight: 700;
 }
 
@@ -63,13 +65,14 @@
     font-size: clamp(1.7rem, 2.3vw, 2.6rem);
     line-height: 1.2;
     margin: 0.5rem 0 0.85rem;
+    color: var(--text-color);
 }
 
 .product-detail-price {
     margin: 0;
     font-size: 1.7rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #fff 0%, #60a5fa 100%);
+    background: linear-gradient(135deg, var(--text-color) 0%, var(--accent-color) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -77,7 +80,7 @@
 
 .product-detail-summary {
     margin: 1rem 0 1.4rem;
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--gray-600);
 }
 
 .variant-block {
@@ -87,7 +90,7 @@
 .variant-label {
     margin: 0 0 0.65rem;
     font-size: 0.92rem;
-    color: rgba(255, 255, 255, 0.88);
+    color: var(--text-color);
 }
 
 .size-list {
@@ -100,15 +103,16 @@
     min-width: 44px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.04);
-    color: #fff;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    color: var(--text-color);
     font-weight: 600;
 }
 
 .size-item.active {
-    border-color: #60a5fa;
+    border-color: var(--accent-color);
     background: rgba(96, 165, 250, 0.22);
+    color: var(--accent-color);
 }
 
 .color-list {
@@ -125,8 +129,8 @@
 }
 
 .color-item.active {
-    border-color: #fff;
-    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.75);
+    border-color: var(--text-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
 }
 
 .purchase-row {
@@ -139,8 +143,8 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
     border-radius: 999px;
     padding: 0.3rem;
 }
@@ -150,14 +154,16 @@
     height: 32px;
     border-radius: 999px;
     border: none;
-    background: rgba(255, 255, 255, 0.12);
-    color: #fff;
+    background: var(--white);
+    color: var(--text-color);
     font-weight: 700;
+    box-shadow: var(--shadow-sm);
 }
 
 .qty-control span {
     min-width: 24px;
     text-align: center;
+    color: var(--text-color);
 }
 
 .add-main-btn {
@@ -172,7 +178,7 @@
 
 .info-tabs {
     margin-top: 0.6rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid var(--gray-200);
     padding-top: 1rem;
 }
 
@@ -183,21 +189,22 @@
 }
 
 .tab-buttons button {
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.04);
-    color: #fff;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    color: var(--text-color);
     border-radius: 999px;
     padding: 0.45rem 0.9rem;
 }
 
 .tab-buttons .active {
-    border-color: #60a5fa;
+    border-color: var(--accent-color);
     background: rgba(96, 165, 250, 0.22);
+    color: var(--accent-color);
 }
 
 .tab-panel {
     margin-top: 0.9rem;
-    color: rgba(255, 255, 255, 0.86);
+    color: var(--gray-600);
 }
 
 .tab-panel ul {
@@ -206,12 +213,12 @@
 }
 
 .related-products {
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid var(--gray-200);
     padding-top: 2.25rem;
 }
 
 .related-products h2 {
-    color: #fff;
+    color: var(--text-color);
     font-size: clamp(1.4rem, 2vw, 2rem);
     margin: 0 0 1.5rem;
 }
@@ -229,7 +236,7 @@
     border-radius: 12px;
     background: rgba(248, 113, 113, 0.14);
     border: 1px solid rgba(248, 113, 113, 0.34);
-    color: #fecaca;
+    color: #f87171;
     text-align: center;
 }
 
