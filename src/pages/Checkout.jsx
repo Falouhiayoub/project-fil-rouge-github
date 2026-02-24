@@ -6,6 +6,7 @@ import { clearCart } from '../redux/slices/cartSlice';
 import CheckoutForm from '../components/features/checkout/CheckoutForm';
 import { formatCurrency } from '../utils/formatCurrency';
 import { createOrder } from '../services/api';
+import { VITE_N8N_WEBHOOK_URL } from '../config/env';
 import '../styles/Forms.css';
 
 const Checkout = () => {
@@ -28,7 +29,7 @@ const Checkout = () => {
                 shippingAddress: `${customerData.address}, ${customerData.city}, ${customerData.zip}`,
                 items: items.map(item => ({
                     productId: item.id,
-                    title: item.title,
+                    title: item.title || item.name,
                     price: item.price,
                     quantity: item.quantity
                 })),
@@ -40,7 +41,7 @@ const Checkout = () => {
             await createOrder(orderData);
 
             // Call n8n webhook for email confirmation
-            const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+            const webhookUrl = VITE_N8N_WEBHOOK_URL;
             if (webhookUrl) {
                 try {
                     console.log('Sending order data to n8n webhook:', orderData);
@@ -92,7 +93,10 @@ const Checkout = () => {
                         <div className="order-items">
                             {items.map(item => (
                                 <div key={item.id} className="order-item-row">
-                                    <span>{item.title} (x{item.quantity})</span>
+                                    <div className="order-item-info">
+                                        <img src={item.image} alt={item.title || item.name} className="order-item-thumb" />
+                                        <span>{item.title || item.name} (x{item.quantity})</span>
+                                    </div>
                                     <span>{formatCurrency(item.price * item.quantity)}</span>
                                 </div>
                             ))}
