@@ -37,9 +37,9 @@ export const getAIResponse = async (userMessage, products = [], history = []) =>
     try {
         const systemPrompt = createSystemPrompt(products);
         
-        // Use gemini-1.5-flash
+        // Use gemini-pro for stability
         const model = genAI.getGenerativeModel({ 
-            model: "gemini-1.5-flash",
+            model: "gemini-2.5-flash",
         });
 
         // For Gemini 1.5 models, we can use systemInstruction if the SDK supports it, 
