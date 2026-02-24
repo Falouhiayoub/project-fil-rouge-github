@@ -127,6 +127,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
 }
 
 .product-price {
@@ -135,27 +137,59 @@
     color: var(--secondary-color);
 }
 
-.quick-add-btn {
-    padding: 0.7rem 1.2rem;
-    background: var(--primary-color);
+.product-flash-card .quick-add-btn {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
     color: var(--white);
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    min-width: 140px;
 }
 
-.quick-add-btn:hover {
+.product-flash-card .btn-icon {
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.product-flash-card .quick-add-btn:hover {
     background: linear-gradient(135deg, #c084fc 0%, #60a5fa 100%);
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(192, 132, 252, 0.4);
+}
+
+.product-flash-card .quick-add-btn:hover .btn-icon {
+    transform: scale(1.2) rotate(-10deg);
+}
+
+.product-flash-card .quick-add-btn:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 1100px) {
+    .product-flash-card .product-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+    
+    .product-flash-card .quick-add-btn {
+        width: 100%;
+    }
 }
 
 /* Deal of the Week Section */
 .deal-section {
     padding: 6rem 2rem;
-    background-color: #f9fafb;
+    background-color: var(--gray-50);
 }
 
 .deal-container {
@@ -530,10 +564,36 @@
     margin-bottom: 0.5rem;
 }
 
+.premium-badge.new-badge {
+    background: linear-gradient(135deg, #34d399 0%, #60a5fa 100%);
+}
+
+.new-arrival-label {
+    background: var(--accent-color) !important;
+    color: white !important;
+}
+
+.product-category-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.new-arrivals-section {
+    background: var(--gray-50);
+    border-radius: 40px;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
 /* Testimonials Section */
 .testimonials-section {
     padding: 8rem 2rem;
-    background-color: #f8fafc;
+    background-color: var(--gray-50);
 }
 
 .section-header-centered {
