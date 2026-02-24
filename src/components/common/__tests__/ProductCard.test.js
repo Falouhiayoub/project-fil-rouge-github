@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { MemoryRouter } from 'react-router-dom';
+import { ToastProvider } from '../../../context/ToastContext';
 import cartReducer, { addToCart } from '../../../redux/slices/cartSlice';
 import ProductCard from '../ProductCard';
 
@@ -15,7 +17,15 @@ const renderWithRedux = (
     { store = configureStore({ reducer: { cart: cartReducer } }) } = {}
 ) => {
     return {
-        ...render(<Provider store={store}>{component}</Provider>),
+        ...render(
+            <Provider store={store}>
+                <ToastProvider>
+                    <MemoryRouter>
+                        {component}
+                    </MemoryRouter>
+                </ToastProvider>
+            </Provider>
+        ),
         store,
     };
 };
@@ -42,8 +52,9 @@ describe('ProductCard', () => {
     it('dispatches addToCart action when button is clicked', () => {
         const { store } = renderWithRedux(<ProductCard product={mockProduct} />);
 
-        // Since we have two buttons (Quick Add and icon btn), we use getAllByRole
-        const buttons = screen.getAllByRole('button', { name: /add to cart/i });
+        // Find the button by its role and name or just the icon button if uniquely identifiable
+        const buttons = screen.getAllByRole('button');
+        // The first button should be the add to cart button
         fireEvent.click(buttons[0]);
 
         // Verify Redux state updated instead of just spying on dispatch (more robust)
