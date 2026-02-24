@@ -3,10 +3,12 @@ import productsReducer, { fetchProducts, filterByCategory } from "../productSlic
 describe('productSlice', () => {
     const initialState = {
         items: [],
+        selectedProduct: null,
         loading: false,
         error: null,
         filteredItems: [],
-        currentCategory: 'all'
+        currentCategory: 'all',
+        searchQuery: ''
     };
 
     it('should handle initial state', () => {
