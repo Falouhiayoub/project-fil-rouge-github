@@ -12,25 +12,23 @@
 .about-content {
     position: relative;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.85);
-    /* Semi-transparent white background for readability */
+    background-color: var(--white);
     padding: 3rem;
-    border-radius: 12px;
+    border-radius: 20px;
     max-width: 800px;
     text-align: center;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: var(--shadow-xl);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--gray-200);
     margin: 20px;
 }
 
 .about-title {
     font-size: 2.5rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 1.5rem;
-    font-family: 'Playfair Display', serif;
-    /* Assuming a serif font is available or fallback */
+    font-family: var(--font-family);
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -38,8 +36,8 @@
 .about-description {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #555;
-    font-family: 'Open Sans', sans-serif;
+    color: var(--gray-600);
+    font-family: var(--font-family);
 }
 
 .about-description p {
