@@ -3,19 +3,19 @@
     max-width: 550px;
     margin: 2rem auto;
     padding: 3rem;
-    background: rgba(15, 15, 25, 0.7);
+    background: var(--white);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-radius: 24px;
-    border: 1px solid rgba(168, 85, 247, 0.2);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    color: var(--white);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-xl);
+    color: var(--text-color);
 }
 
 .form-title {
     text-align: center;
     margin-bottom: 2.5rem;
-    color: var(--white);
+    color: var(--text-color);
     font-size: 2.5rem;
     font-weight: 700;
 }
@@ -28,7 +28,7 @@
     display: block;
     margin-bottom: 0.75rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-color);
     font-size: 0.9rem;
 }
 
@@ -36,10 +36,10 @@
 .form-textarea {
     width: 100%;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
     border-radius: 12px;
-    color: var(--white);
+    color: var(--text-color);
     font-size: 1rem;
     transition: all 0.3s ease;
 }
@@ -52,8 +52,8 @@
 .form-input:focus,
 .form-textarea:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.08);
-    border-color: #a855f7;
+    background: var(--white);
+    border-color: var(--accent-color);
     box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
 }
 
@@ -103,11 +103,10 @@
     max-width: 1300px;
     margin: 0 auto;
     padding: 140px 2rem 4rem;
-    /* Fix overlap with navbar */
 }
 
 .section-title {
-    color: var(--white);
+    color: var(--text-color);
     font-size: 2.2rem;
     font-weight: 800;
     margin-bottom: 2rem;
@@ -123,9 +122,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    color: white;
-    -webkit-background-clip: text;
-    background-clip: text;
+    color: var(--text-color);
 }
 
 .order-items {
@@ -135,14 +132,29 @@
 .order-item-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.75rem;
+    align-items: center;
+    margin-bottom: 1rem;
     font-size: 0.95rem;
-    color: white;
+    color: var(--gray-600);
+}
+
+.order-item-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.order-item-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--gray-200);
 }
 
 .summary-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--gray-200);
     margin: 1.5rem 0;
 }
 
@@ -151,19 +163,20 @@
     justify-content: space-between;
     margin-bottom: 0.75rem;
     font-size: 1rem;
+    color: var(--gray-600);
 }
 
 .summary-details .total-row {
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 1px solid var(--gray-200);
     font-weight: 800;
     font-size: 1.3rem;
+    color: var(--text-color);
 }
 
 .total-amount {
-    color: black;
-    text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+    color: var(--accent-color);
 }
 
 @media (max-width: 900px) {
