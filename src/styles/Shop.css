@@ -17,9 +17,9 @@
 
 .filter-btn {
     padding: 0.9rem 2.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+    color: var(--text-color);
     border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
@@ -29,15 +29,15 @@
     -webkit-backdrop-filter: blur(15px);
     text-transform: capitalize;
     letter-spacing: 1px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-md);
 }
 
 .filter-btn:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.15);
-    color: var(--white);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    background: var(--gray-100);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-lg);
 }
 
 .filter-btn.active {
@@ -55,17 +55,17 @@
 }
 
 .product-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--gray-200);
     border-radius: 24px;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     display: flex;
     flex-direction: column;
     position: relative;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow-md);
 }
 
 .product-card-link {
@@ -78,9 +78,8 @@
 
 .product-card:hover {
     transform: translateY(-15px);
-    border-color: rgba(192, 132, 252, 0.4);
-    box-shadow: 0 25px 60px rgba(168, 85, 247, 0.2);
-    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-xl);
 }
 
 .product-image-container {
@@ -89,7 +88,7 @@
     overflow: hidden;
     position: relative;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--gray-50);
 }
 
 .product-image {
@@ -97,7 +96,7 @@
     height: 100%;
     object-fit: contain;
     transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
 }
 
 .product-card:hover .product-image {
@@ -150,7 +149,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    background: var(--white);
 }
 
 .product-meta {
@@ -162,16 +161,15 @@
 
 .product-category {
     font-size: 0.8rem;
-    color: #c084fc;
+    color: var(--accent-color);
     text-transform: uppercase;
     letter-spacing: 3px;
     font-weight: 700;
-    opacity: 0.8;
 }
 
 .product-badge {
     background: linear-gradient(135deg, rgba(192, 132, 252, 0.1) 0%, rgba(96, 165, 250, 0.1) 100%);
-    color: #60a5fa;
+    color: var(--accent-color);
     padding: 4px 12px;
     border-radius: 50px;
     font-size: 0.75rem;
@@ -185,7 +183,7 @@
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 1.25rem;
-    color: #ffffff;
+    color: var(--text-color);
     line-height: 1.4;
     letter-spacing: -0.02em;
 }
@@ -200,17 +198,17 @@
 .product-price {
     font-size: 1.6rem;
     font-weight: 800;
-    color: #ffffff;
-    background: linear-gradient(135deg, #ffffff 0%, #60a5fa 100%);
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--text-color) 0%, var(--accent-color) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .add-to-cart-icon-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    color: var(--text-color);
     width: 48px;
     height: 48px;
     border-radius: 16px;
@@ -224,6 +222,7 @@
 .add-to-cart-icon-btn:hover {
     background: linear-gradient(135deg, #c084fc 0%, #60a5fa 100%);
     border-color: transparent;
+    color: white;
     transform: scale(1.1) rotate(10deg);
     box-shadow: 0 10px 20px rgba(192, 132, 252, 0.3);
 }
@@ -234,12 +233,12 @@
     padding: 8rem 2rem;
     font-size: 1.5rem;
     font-weight: 700;
-    color: white;
-    background: rgba(0, 0, 0, 0.4);
+    color: var(--text-color);
+    background: var(--white);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     margin: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--gray-200);
 }
 
 .error-container {
