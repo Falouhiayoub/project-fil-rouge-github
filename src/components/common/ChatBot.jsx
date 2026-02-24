@@ -124,12 +124,12 @@ const ChatBot = () => {
                     <div className="chatbot-header">
                         <div className="header-info">
                             <div className="status-dot"></div>
-                            <h3>Style Advisor 2.0</h3>
+                            <h3>Fashion Fuel</h3>
                         </div>
-                            aria-label="Close Chat Window"
                         <button
                             className="chatbot-close"
                             onClick={() => setIsOpen(false)}
+                            aria-label="Close Chat Window"
                         >
                             ✕
                         </button>
