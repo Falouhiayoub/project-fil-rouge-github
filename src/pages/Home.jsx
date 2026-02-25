@@ -6,6 +6,7 @@ import { addToCart } from '../redux/slices/cartSlice';
 import { fetchProducts } from '../redux/slices/productSlice';
 import ProductCard from '../components/common/ProductCard';
 import SEO from '../components/common/SEO';
+import RecentlyViewed from '../components/common/RecentlyViewed';
 // MUI Icons
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import ShieldIcon from '@mui/icons-material/Shield';
@@ -17,6 +18,12 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import heroVideo from '../assets/vidéo.mp4';
 import jacketImg from '../assets/jacket.jpg';
+import jacket2Img from '../assets/jacket2.jpg';
+import nightDressImg from '../assets/night dress.jpg';
+import isweImg from '../assets/Iswe.jpg';
+import womenCollectionImg from '../assets/womenCollection.jpg';
+import menCollectionImg from '../assets/menCollection.jpg';
+import accessoriesCollectionImg from '../assets/Accessories_Collection.jpg';
 import dressImg from '../assets/dress.jpg';
 import mensImg from "../assets/Men's.jpg";
 import hazelImg from '../assets/Hazel.jpg';
@@ -120,21 +127,21 @@ const Home = () => {
             id: 101,
             name: "Classic Urban Jacket",
             price: 129.99,
-            image: jacketImg,
+            image: jacket2Img,
             category: "men"
         },
         {
             id: 102,
             name: "Silk Evening Dress",
             price: 199.50,
-            image: dressImg,
+            image: nightDressImg,
             category: "women"
         },
         {
             id: 103,
             name: "Premium Leather Tote",
             price: 85.00,
-            image: "https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=2000&auto=format&fit=crop",
+            image: isweImg,
             category: "accessories"
         }
     ];
@@ -143,19 +150,19 @@ const Home = () => {
         {
             id: 1,
             title: 'Women\'s Collection',
-            image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=2071&auto=format&fit=crop',
+            image: womenCollectionImg,
             link: '/shop?category=women'
         },
         {
             id: 2,
             title: 'Men\'s Collection',
-            image: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=2000&auto=format&fit=crop',
+            image: menCollectionImg,
             link: '/shop?category=men'
         },
         {
             id: 3,
             title: 'Accessories',
-            image: 'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=2193&auto=format&fit=crop',
+            image: accessoriesCollectionImg,
             link: '/shop?category=accessories'
         }
     ];
@@ -534,6 +541,8 @@ const Home = () => {
                     ))}
                 </div>
             </section>
+
+            <RecentlyViewed />
         </div>
     );
 };
