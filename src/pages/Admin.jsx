@@ -7,6 +7,7 @@ import {
     Drawer,
     List,
     ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     Typography,
@@ -85,29 +86,23 @@ const Admin = () => {
                 </Box>
                 <Box sx={{ overflow: 'auto' }}>
                     <List className="admin-sidebar-list">
-                        <ListItem
-                            button
-                            onClick={() => setCurrentView('overview')}
-                            className={`admin-sidebar-item ${currentView === 'overview' ? 'selected' : ''}`}
-                        >
-                            <ListItemIcon><DashboardIcon /></ListItemIcon>
-                            <ListItemText primary="Overview" />
+                        <ListItem disablePadding className={`admin-sidebar-item ${currentView === 'overview' ? 'selected' : ''}`}>
+                            <ListItemButton onClick={() => setCurrentView('overview')}>
+                                <ListItemIcon><DashboardIcon /></ListItemIcon>
+                                <ListItemText primary="Overview" />
+                            </ListItemButton>
                         </ListItem>
-                        <ListItem
-                            button
-                            onClick={() => setCurrentView('products')}
-                            className={`admin-sidebar-item ${currentView === 'products' ? 'selected' : ''}`}
-                        >
-                            <ListItemIcon><InventoryIcon /></ListItemIcon>
-                            <ListItemText primary="Products" />
+                        <ListItem disablePadding className={`admin-sidebar-item ${currentView === 'products' ? 'selected' : ''}`}>
+                            <ListItemButton onClick={() => setCurrentView('products')}>
+                                <ListItemIcon><InventoryIcon /></ListItemIcon>
+                                <ListItemText primary="Products" />
+                            </ListItemButton>
                         </ListItem>
-                        <ListItem
-                            button
-                            onClick={() => setCurrentView('orders')}
-                            className={`admin-sidebar-item ${currentView === 'orders' ? 'selected' : ''}`}
-                        >
-                            <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
-                            <ListItemText primary="Commands (Orders)" />
+                        <ListItem disablePadding className={`admin-sidebar-item ${currentView === 'orders' ? 'selected' : ''}`}>
+                            <ListItemButton onClick={() => setCurrentView('orders')}>
+                                <ListItemIcon><ShoppingCartIcon /></ListItemIcon>
+                                <ListItemText primary="Commands (Orders)" />
+                            </ListItemButton>
                         </ListItem>
                     </List>
                 </Box>
