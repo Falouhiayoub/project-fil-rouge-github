@@ -3,11 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
 import { clearSelectedProduct, fetchProductById, fetchProducts } from '../redux/slices/productSlice';
+import { trackProductView } from '../redux/slices/userPreferenceSlice';
 import { useToast } from '../context/ToastContext';
 import ProductCard from '../components/common/ProductCard';
 import SEO from '../components/common/SEO';
 import { SkeletonDetail } from '../components/common/Skeleton';
 import { formatCurrency } from '../utils/formatCurrency';
+import ReviewSection from '../components/features/reviews/ReviewSection';
+import RecentlyViewed from '../components/common/RecentlyViewed';
 import '../styles/ProductDetail.css';
 
 const SIZE_OPTIONS = ['XS', 'S', 'M', 'L', 'XL'];
@@ -40,6 +43,12 @@ const ProductDetail = () => {
             dispatch(clearSelectedProduct());
         };
     }, [dispatch, id, items.length]);
+
+    useEffect(() => {
+        if (product) {
+            dispatch(trackProductView(product));
+        }
+    }, [dispatch, product]);
 
     const product = selectedProduct;
 
@@ -218,6 +227,8 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
+                <ReviewSection productId={id} />
+
                 {relatedProducts.length > 0 && (
                     <section className="related-products">
                         <h2>You might also like</h2>
@@ -229,6 +240,8 @@ const ProductDetail = () => {
                     </section>
                 )}
             </div>
+
+            <RecentlyViewed title="You recently looked at..." />
         </div>
     );
 };
