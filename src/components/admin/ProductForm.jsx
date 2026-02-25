@@ -20,19 +20,24 @@ const ProductForm = ({ open, handleClose, onSave, product }) => {
         price: '',
         category: '',
         description: '',
-        image: ''
+        image: '',
+        stock: 10 // Default stock
     });
 
     useEffect(() => {
         if (product) {
-            setFormData(product);
+            setFormData({
+                ...product,
+                stock: product.stock !== undefined ? product.stock : 10
+            });
         } else {
             setFormData({
                 name: '',
                 price: '',
                 category: '',
                 description: '',
-                image: ''
+                image: '',
+                stock: 10
             });
         }
     }, [product]);
@@ -74,6 +79,15 @@ const ProductForm = ({ open, handleClose, onSave, product }) => {
                         label="Price"
                         type="number"
                         value={formData.price}
+                        onChange={handleChange}
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        name="stock"
+                        label="Stock Quantity"
+                        type="number"
+                        value={formData.stock}
                         onChange={handleChange}
                         fullWidth
                         required

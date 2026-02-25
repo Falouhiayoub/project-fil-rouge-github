@@ -141,6 +141,7 @@ const ProductList = () => {
                                     <TableCell>Name</TableCell>
                                     <TableCell>Category</TableCell>
                                     <TableCell>Price</TableCell>
+                                    <TableCell>Stock</TableCell>
                                     <TableCell align="right">Actions</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -157,6 +158,15 @@ const ProductList = () => {
                                         <TableCell>{product.name}</TableCell>
                                         <TableCell sx={{ textTransform: 'capitalize' }}>{product.category}</TableCell>
                                         <TableCell>${product.price}</TableCell>
+                                        <TableCell>
+                                            <Box sx={{ 
+                                                color: product.stock <= 3 ? '#f87171' : 'inherit',
+                                                fontWeight: product.stock <= 3 ? 700 : 400
+                                            }}>
+                                                {product.stock || 0}
+                                                {product.stock <= 3 && ' (Low)'}
+                                            </Box>
+                                        </TableCell>
                                         <TableCell align="right">
                                             <IconButton onClick={() => handleEditClick(product)} color="primary">
                                                 <EditIcon />

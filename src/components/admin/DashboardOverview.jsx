@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Grid, Paper, Typography, CircularProgress } from '@mui/material';
+import { Box, Grid, Paper, Typography, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -17,8 +17,13 @@ import {
     Legend,
     ResponsiveContainer,
     Area,
-    AreaChart
+    AreaChart,
+    PieChart,
+    Pie,
+    Cell
 } from 'recharts';
+
+const COLORS = ['#982598', '#b84db8', '#d870d8', '#e8a0e8', '#f8d0f8'];
 
 const StatCard = ({ title, count, icon, color }) => (
     <Paper
@@ -43,6 +48,8 @@ const DashboardOverview = () => {
     });
     const [loading, setLoading] = useState(true);
     const [chartData, setChartData] = useState([]);
+    const [topProducts, setTopProducts] = useState([]);
+    const [categoryRevenue, setCategoryRevenue] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -61,12 +68,16 @@ const DashboardOverview = () => {
                 setStats({
                     totalProducts: products.length,
                     totalOrders: orders.length,
-                    totalRevenue: revenue
+                    totalRevenue: revenue,
+                    lowStockProducts: products.filter(p => (p.stock || 0) <= 3)
                 });
 
                 // Prepare chart data - group orders by month or create sample data
                 const monthlyData = prepareChartData(orders, products);
                 setChartData(monthlyData);
+
+                // Calculate Analytics
+                calculateAnalytics(orders, products);
             } catch (error) {
                 console.error('Error fetching dashboard stats:', error);
             } finally {
@@ -76,6 +87,51 @@ const DashboardOverview = () => {
 
         fetchData();
     }, []);
+
+    const calculateAnalytics = (orders, products) => {
+        // Top Selling Products
+        const productSales = {};
+        orders.forEach(order => {
+            if (order.items) {
+                order.items.forEach(item => {
+                    const id = item.productId || item.id;
+                    productSales[id] = (productSales[id] || 0) + (item.quantity || 1);
+                });
+            }
+        });
+
+        const sortedProducts = Object.entries(productSales)
+            .map(([id, sales]) => {
+                const product = products.find(p => String(p.id) === String(id));
+                return {
+                    name: product ? product.name : `Product ${id}`,
+                    sales
+                };
+            })
+            .sort((a, b) => b.sales - a.sales)
+            .slice(0, 5);
+
+        setTopProducts(sortedProducts);
+
+        // Revenue by Category
+        const catRev = {};
+        orders.forEach(order => {
+            if (order.items) {
+                order.items.forEach(item => {
+                    const product = products.find(p => String(p.id) === String(item.productId || item.id));
+                    const category = product ? product.category : 'Unknown';
+                    const itemTotal = (item.price || 0) * (item.quantity || 1);
+                    catRev[category] = (catRev[category] || 0) + itemTotal;
+                });
+            }
+        });
+
+        const sortedCategories = Object.entries(catRev)
+            .map(([name, value]) => ({ name, value }))
+            .sort((a, b) => b.value - a.value);
+
+        setCategoryRevenue(sortedCategories);
+    };
 
     const prepareChartData = (orders, products) => {
         // Create sample monthly data for visualization
@@ -219,8 +275,112 @@ const DashboardOverview = () => {
                             </ResponsiveContainer>
                         </Paper>
                     </Grid>
+
+                    {/* Top Products & Category Revenue */}
+                    <Grid item xs={12} md={6}>
+                        <Paper elevation={3} className="chart-container">
+                            <Typography variant="h6" className="chart-title">
+                                Top Selling Products
+                            </Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart layout="vertical" data={topProducts}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(152, 37, 152, 0.2)" />
+                                    <XAxis type="number" stroke="#b0b0b0" />
+                                    <YAxis dataKey="name" type="category" stroke="#b0b0b0" width={100} />
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: 'rgba(26, 26, 26, 0.95)',
+                                            border: '1px solid rgba(152, 37, 152, 0.5)',
+                                            borderRadius: '8px',
+                                            color: '#ffffff'
+                                        }}
+                                    />
+                                    <Bar dataKey="sales" fill="#982598" radius={[0, 4, 4, 0]} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Paper elevation={3} className="chart-container">
+                            <Typography variant="h6" className="chart-title">
+                                Revenue by Category
+                            </Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <PieChart>
+                                    <Pie
+                                        data={categoryRevenue}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={60}
+                                        outerRadius={100}
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                    >
+                                        {categoryRevenue.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: 'rgba(26, 26, 26, 0.95)',
+                                            border: '1px solid rgba(152, 37, 152, 0.5)',
+                                            borderRadius: '8px',
+                                            color: '#ffffff'
+                                        }}
+                                        formatter={(value) => `$${value.toFixed(2)}`}
+                                    />
+                                    <Legend />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </Paper>
+                    </Grid>
                 </Grid>
             </Box>
+
+            {/* Restock Needed Section */}
+            {stats.lowStockProducts?.length > 0 && (
+                <Box sx={{ mt: 5 }}>
+                    <Paper elevation={3} sx={{ p: 3, borderRadius: '16px', border: '1px solid rgba(248, 113, 113, 0.3)' }}>
+                        <Typography variant="h6" sx={{ mb: 2, color: '#f87171', display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <InventoryIcon /> Restock Needed Soon
+                        </Typography>
+                        <TableContainer>
+                            <Table size="small">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Product</TableCell>
+                                        <TableCell>Category</TableCell>
+                                        <TableCell>Current Stock</TableCell>
+                                        <TableCell align="right">Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {stats.lowStockProducts.map((product) => (
+                                        <TableRow key={product.id}>
+                                            <TableCell>
+                                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                                    <img src={product.image} alt={product.name} style={{ width: 30, height: 30, borderRadius: '4px' }} />
+                                                    {product.name}
+                                                </Box>
+                                            </TableCell>
+                                            <TableCell sx={{ textTransform: 'capitalize' }}>{product.category}</TableCell>
+                                            <TableCell sx={{ color: product.stock === 0 ? '#f87171' : '#fbbf24', fontWeight: 700 }}>
+                                                {product.stock || 0}
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Button size="small" variant="outlined" color="primary">
+                                                    Manage
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Paper>
+                </Box>
+            )}
         </Box>
     );
 };
