@@ -5,6 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { MemoryRouter } from 'react-router-dom';
 import { ToastProvider } from '../../../context/ToastContext';
 import cartReducer, { addToCart } from '../../../redux/slices/cartSlice';
+import wishlistReducer from '../../../redux/slices/wishlistSlice';
 import ProductCard from '../ProductCard';
 
 // Simple mock for formatCurrency since it might have non-breaking spaces or different formatting in test env
@@ -14,7 +15,12 @@ jest.mock('../../../utils/formatCurrency', () => ({
 
 const renderWithRedux = (
     component,
-    { store = configureStore({ reducer: { cart: cartReducer } }) } = {}
+    { store = configureStore({ 
+        reducer: { 
+            cart: cartReducer,
+            wishlist: wishlistReducer
+        } 
+    }) } = {}
 ) => {
     return {
         ...render(
@@ -52,14 +58,24 @@ describe('ProductCard', () => {
     it('dispatches addToCart action when button is clicked', () => {
         const { store } = renderWithRedux(<ProductCard product={mockProduct} />);
 
-        // Find the button by its role and name or just the icon button if uniquely identifiable
-        const buttons = screen.getAllByRole('button');
-        // The first button should be the add to cart button
-        fireEvent.click(buttons[0]);
+        // Find the "Add to cart" button by its aria-label
+        const addToCartButtons = screen.getAllByLabelText('Add to cart');
+        // Click the first one (Quick Add)
+        fireEvent.click(addToCartButtons[0]);
 
         // Verify Redux state updated instead of just spying on dispatch (more robust)
         expect(store.getState().cart.items).toHaveLength(1);
         expect(store.getState().cart.items[0].id).toBe('1');
         expect(store.getState().cart.items[0].quantity).toBe(1);
+    });
+
+    it('dispatches toggleWishlist action when wishlist button is clicked', () => {
+        const { store } = renderWithRedux(<ProductCard product={mockProduct} />);
+
+        const wishlistBtn = screen.getByLabelText('Add to wishlist');
+        fireEvent.click(wishlistBtn);
+
+        expect(store.getState().wishlist.items).toHaveLength(1);
+        expect(store.getState().wishlist.items[0].id).toBe('1');
     });
 });
