@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, filterByCategory } from '../redux/slices/productSlice';
 import ProductCard from '../components/common/ProductCard';
+import RecentlyViewed from '../components/common/RecentlyViewed';
 import '../styles/Shop.css';
 
 const Shop = () => {
@@ -47,6 +48,8 @@ const Shop = () => {
                     ))}
                 </div>
             </div>
+            
+            <RecentlyViewed />
         </div>
     );
 };
