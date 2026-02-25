@@ -15,10 +15,44 @@ const Checkout = () => {
     const { items } = useSelector((state) => state.cart);
     const [orderPlaced, setOrderPlaced] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [couponCode, setCouponCode] = useState('');
+    const [discount, setDiscount] = useState(0);
+    const [couponError, setCouponError] = useState('');
+    const [appliedCoupon, setAppliedCoupon] = useState(null);
+
+    const VALID_COUPONS = {
+        'FASHION20': { type: 'percentage', value: 20 },
+        'WELCOME10': { type: 'percentage', value: 10 },
+        'SAVE5': { type: 'fixed', value: 5 }
+    };
+
+    const handleApplyCoupon = () => {
+        const code = couponCode.toUpperCase().trim();
+        if (VALID_COUPONS[code]) {
+            const cp = VALID_COUPONS[code];
+            setAppliedCoupon({ code, ...cp });
+            setCouponError('');
+        } else {
+            setCouponError('Invalid coupon code');
+            setAppliedCoupon(null);
+            setDiscount(0);
+        }
+    };
 
     const subtotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const tax = subtotal * 0.1;
-    const total = subtotal + tax;
+    
+    // Calculate discount
+    let discountAmount = 0;
+    if (appliedCoupon) {
+        if (appliedCoupon.type === 'percentage') {
+            discountAmount = subtotal * (appliedCoupon.value / 100);
+        } else {
+            discountAmount = appliedCoupon.value;
+        }
+    }
+
+    const tax = (subtotal - discountAmount) * 0.1;
+    const total = subtotal - discountAmount + tax;
 
     const handlePlaceOrder = async (customerData) => {
         setLoading(true);
@@ -101,12 +135,46 @@ const Checkout = () => {
                                 </div>
                             ))}
                         </div>
+                        
+                        <div className="coupon-section" style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                            <div style={{ display: 'flex', gap: '10px' }}>
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter Coupon Code" 
+                                    value={couponCode}
+                                    onChange={(e) => setCouponCode(e.target.value)}
+                                    className="form-input"
+                                    style={{ margin: 0 }}
+                                />
+                                <button 
+                                    type="button" 
+                                    onClick={handleApplyCoupon}
+                                    className="submit-btn"
+                                    style={{ margin: 0, width: 'auto', padding: '0 20px' }}
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                            {couponError && <p style={{ color: '#f87171', fontSize: '0.85rem', marginTop: '5px' }}>{couponError}</p>}
+                            {appliedCoupon && (
+                                <p style={{ color: '#34d399', fontSize: '0.85rem', marginTop: '5px' }}>
+                                    ✓ Coupon {appliedCoupon.code} applied! ({appliedCoupon.type === 'percentage' ? `${appliedCoupon.value}%` : `$${appliedCoupon.value}`} off)
+                                </p>
+                            )}
+                        </div>
+
                         <div className="summary-divider"></div>
                         <div className="summary-details">
                             <div className="summary-row">
                                 <span>Subtotal</span>
                                 <span>{formatCurrency(subtotal)}</span>
                             </div>
+                            {discountAmount > 0 && (
+                                <div className="summary-row" style={{ color: '#34d399' }}>
+                                    <span>Discount ({appliedCoupon?.code})</span>
+                                    <span>-{formatCurrency(discountAmount)}</span>
+                                </div>
+                            )}
                             <div className="summary-row">
                                 <span>Tax</span>
                                 <span>{formatCurrency(tax)}</span>
