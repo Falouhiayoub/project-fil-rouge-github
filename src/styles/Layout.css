@@ -180,12 +180,12 @@
 }
 
 .login-btn {
-  padding: 0.4rem 1.2rem;
+  padding: 0.3rem 1rem;
   background: linear-gradient(135deg, #c084fc 0%, #60a5fa 100%);
   color: var(--white);
   border-radius: 50px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(192, 132, 252, 0.2);
   display: inline-block;
