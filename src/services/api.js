@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { VITE_MOCKAPI_URL } from '../config/env';
 
 const api = axios.create({
-    baseURL: 'https://69528ac13b3c518fca12fccd.mockapi.io/api/v1/',
+    baseURL: VITE_MOCKAPI_URL,
     headers: {
         'Content-Type': 'application/json',
     },
