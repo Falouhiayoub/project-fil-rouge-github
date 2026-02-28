@@ -14,10 +14,11 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
 import ShippingReturns from './pages/ShippingReturns'
-import PrivacyPolicy from './pages/PrivacyPolicy'
+import LegalPolicy from './pages/LegalPolicy'
 import Checkout from './pages/Checkout'
 import Admin from './pages/Admin'
 
+import ProtectedRoute from './components/auth/ProtectedRoute'
 import ChatBot from './components/common/ChatBot'
 import { ToastProvider } from './context/ToastContext'
 import { ThemeProvider } from './context/ThemeContext'
@@ -51,15 +52,23 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/shipping" element={<ShippingReturns />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/privacy" element={<LegalPolicy />} />
           <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/checkout" element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute adminOnly>
+                <Admin />
+              </ProtectedRoute>
+            } />
           </Routes>
         </Layout>
       </ToastProvider>
