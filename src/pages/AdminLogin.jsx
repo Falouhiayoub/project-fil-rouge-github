@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/slices/authSlice';
 import { validateRequired } from '../utils/validation';
@@ -7,7 +7,12 @@ import '../styles/Login.css';
 
 const AdminLogin = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch();
+    
+    // Get the page where the admin came from
+    const from = location.state?.from?.pathname || '/admin';
+
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -45,7 +50,7 @@ const AdminLogin = () => {
         // Admin-only login logic
         if (username === 'admin' && password === 'password123') {
             dispatch(login({ email: 'admin@fashionfuel.com', role: 'admin' }));
-            navigate('/admin');
+            navigate(from, { replace: true });
         } else {
             setLoginError('Invalid administrator credentials');
         }

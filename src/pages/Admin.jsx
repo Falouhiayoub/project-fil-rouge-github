@@ -34,14 +34,9 @@ const OrderManager = () => <OrderList />;
 const drawerWidth = 240;
 
 const Admin = () => {
-    const { isAuthenticated, role } = useSelector((state) => state.auth);
+    const { role } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [currentView, setCurrentView] = useState('overview');
-
-    // Protect the route - only allow logged in admins
-    if (!isAuthenticated || role !== 'admin') {
-        return <Navigate to="/admin/login" replace />;
-    }
 
     const handleLogout = () => {
         dispatch(logout());
