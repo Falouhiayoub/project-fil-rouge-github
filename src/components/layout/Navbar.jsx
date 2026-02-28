@@ -103,9 +103,6 @@ const Navbar = () => {
                 <NavLink to="/contact" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
                     Contact
                 </NavLink>
-                <Link to="/login" className="login-btn mobile-only">
-                    Login
-                </Link>
             </div>
 
             <div className="navbar-actions">
