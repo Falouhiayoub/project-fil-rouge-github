@@ -26,11 +26,17 @@
 }
 
 .navbar.scrolled {
-  background-color: var(--white);
+  background-color: rgba(223, 214, 214, 0.7); /* Light white (semi-transparent) */
   padding: 0.4rem 0.5rem 0.4rem 2rem;
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark-theme .navbar.scrolled {
+  background-color: rgba(15, 23, 42, 0.7); /* Semi-transparent dark for dark mode */
+  border-bottom-color: rgba(255, 255, 255, 0.05);
 }
 
 .navbar.scrolled .nav-link,
