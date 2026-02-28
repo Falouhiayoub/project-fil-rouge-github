@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 import { login } from '../redux/slices/authSlice';
 import { validateEmail, validateRequired } from '../utils/validation';
 import { useToast } from '../context/ToastContext';
@@ -56,10 +58,42 @@ const SignUp = () => {
         navigate('/');
     };
 
+    const handleGoogleLoginSuccess = async (response) => {
+        try {
+            const decoded = jwtDecode(response.credential);
+            const userEmail = decoded.email;
+            
+            dispatch(login({ email: userEmail, role: 'user' }));
+            showToast(`Welcome to Fashion Fuel, ${userEmail}!`);
+            navigate('/');
+        } catch (error) {
+            console.error('Google login decoding error:', error);
+            showToast('Error connecting with Google', 'error');
+        }
+    };
+
+    const handleGoogleLoginError = () => {
+        showToast('Google Sign Up Failed', 'error');
+    };
+
     return (
         <div className="login-page">
             <div className="login-container">
                 <h2 className="login-title">Create Account</h2>
+                
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                    <GoogleLogin 
+                        onSuccess={handleGoogleLoginSuccess}
+                        onError={handleGoogleLoginError}
+                        theme="filled_blue"
+                        shape="pill"
+                        text="signup_with"
+                        width="100%"
+                    />
+                </div>
+
+                <div className="login-divider">OR</div>
+
                 <form onSubmit={handleSubmit}>
                     <div className="login-form-group">
                         <label className="login-label" htmlFor="username">Username</label>
