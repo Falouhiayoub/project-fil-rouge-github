@@ -9,7 +9,6 @@ import ProductCard from '../components/common/ProductCard';
 import SEO from '../components/common/SEO';
 import { SkeletonDetail } from '../components/common/Skeleton';
 import { formatCurrency } from '../utils/formatCurrency';
-import ReviewSection from '../components/features/reviews/ReviewSection';
 import RecentlyViewed from '../components/common/RecentlyViewed';
 import '../styles/ProductDetail.css';
 
@@ -32,6 +31,8 @@ const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1);
     const [activeInfoTab, setActiveInfoTab] = useState('description');
 
+    const product = selectedProduct;
+
     useEffect(() => {
         if (id) {
             dispatch(fetchProductById(id));
@@ -49,8 +50,6 @@ const ProductDetail = () => {
             dispatch(trackProductView(product));
         }
     }, [dispatch, product]);
-
-    const product = selectedProduct;
 
     const relatedProducts = useMemo(() => {
         if (!product) return [];
@@ -226,8 +225,6 @@ const ProductDetail = () => {
                         </div>
                     </div>
                 </div>
-
-                <ReviewSection productId={id} />
 
                 {relatedProducts.length > 0 && (
                     <section className="related-products">
