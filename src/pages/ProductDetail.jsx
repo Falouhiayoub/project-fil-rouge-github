@@ -105,8 +105,8 @@ const ProductDetail = () => {
     return (
         <div className="page-wrapper">
             <SEO
-                title={product.title}
-                description={`Discover ${product.title} in the Fashion Fuel ${product.category} collection.`}
+                title={product.title || product.name}
+                description={`Discover ${product.title || product.name} in the Fashion Fuel ${product.category} collection.`}
                 image={product.image}
                 url={`/shop/${product.id}`}
             />
@@ -117,17 +117,17 @@ const ProductDetail = () => {
                     <span>/</span>
                     <Link to="/shop">Shop</Link>
                     <span>/</span>
-                    <span>{product.title}</span>
+                    <span>{product.title || product.name}</span>
                 </div>
 
                 <div className="product-detail-grid">
                     <div className="product-detail-image-wrap">
-                        <img src={product.image} alt={product.title} className="product-detail-image" />
+                        <img src={product.image} alt={product.title || product.name} className="product-detail-image" />
                     </div>
 
                     <div className="product-detail-content">
                         <span className="product-detail-category">{product.category}</span>
-                        <h1 className="product-detail-title">{product.title}</h1>
+                        <h1 className="product-detail-title">{product.title || product.name}</h1>
                         <p className="product-detail-price">{formatCurrency(product.price)}</p>
 
                         <p className="product-detail-summary">
@@ -208,7 +208,7 @@ const ProductDetail = () => {
                             {activeInfoTab === 'description' && (
                                 <div className="tab-panel">
                                     <p>
-                                        {product.title} is part of our new-season drop with a clean silhouette,
+                                        {product.title || product.name} is part of our new-season drop with a clean silhouette,
                                         lightweight feel, and versatile styling for casual and elevated looks.
                                     </p>
                                 </div>
