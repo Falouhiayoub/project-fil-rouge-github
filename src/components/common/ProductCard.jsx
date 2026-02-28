@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
         e.preventDefault();
         e.stopPropagation();
         dispatch(addToCart(product));
-        showToast(`${product.title} added to cart!`);
+        showToast(`${product.title || product.name} added to cart!`);
     };
 
     const handleToggleWishlist = (e) => {
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
         <div className="product-card">
             <Link to={`/shop/${product.id}`} className="product-card-link">
                 <div className="product-image-container">
-                    <img src={product.image} alt={product.title} className="product-image" />
+                    <img src={product.image} alt={product.title || product.name} className="product-image" />
                     <button 
                         onClick={handleToggleWishlist} 
                         className={`wishlist-btn ${isWishlisted ? 'active' : ''}`}
@@ -64,7 +64,7 @@ const ProductCard = ({ product }) => {
                             <span className="product-badge">New</span>
                         )}
                     </div>
-                    <h3 className="product-title">{product.title}</h3>
+                    <h3 className="product-title">{product.title || product.name}</h3>
                     <div className="product-footer">
                         <p className="product-price">{formatCurrency(product.price)}</p>
                         <button onClick={handleAddToCart} className="add-to-cart-icon-btn" aria-label="Add to cart">
