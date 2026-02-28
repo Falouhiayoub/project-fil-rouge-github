@@ -23,7 +23,7 @@ const Shop = () => {
     const categories = ['all', 'women', 'men', 'accessories'];
 
     return (
-        <div className="page-wrapper">
+        <div className="page-wrapper shop-page-bg">
             <div className="page-hero">
                 <h1>Our Collection</h1>
                 <p>Discover the latest trends and fuel your fashion passion with our curated styles.</p>
