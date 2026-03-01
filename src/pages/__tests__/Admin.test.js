@@ -36,12 +36,12 @@ describe('Admin Page', () => {
         }
     };
 
-    it('redirects to login if not authenticated or not admin', () => {
-        // Redirection logic in component: if (!isAuthenticated || role !== 'admin') return <Navigate to="/admin/login" replace />;
-        const { container } = renderWithReduxAndRouter(<Admin />);
-        // When using Navigate component in JSDOM, it might not render anything but would trigger a redirect in a real router
-        // However, the test was expecting null before, and the component returns Navigate which renders null.
-        expect(container.firstChild).toBeNull();
+    it('renders admin layout (route protection handled by ProtectedRoute)', () => {
+        // Admin page no longer performs redirect checks directly.
+        // Access control is enforced at route level via <ProtectedRoute adminOnly />.
+        renderWithReduxAndRouter(<Admin />);
+        expect(screen.getByText(/fashion fuel admin/i)).toBeInTheDocument();
+        expect(screen.getByTestId('overview')).toBeInTheDocument();
     });
 
     it('renders admin dashboard for authenticated admins', () => {

@@ -57,7 +57,7 @@ describe('ChatBot', () => {
     it('closes window when close button is clicked', () => {
         renderWithProviders(<ChatBot />);
         fireEvent.click(screen.getByLabelText('Open Chat')); // Open
-        fireEvent.click(screen.getByLabelText('Close Chat Window')); // Close
+        fireEvent.click(screen.getByLabelText('Close Chat')); // Close
 
         expect(screen.queryByText('Fashion Fuel')).not.toBeInTheDocument();
     });

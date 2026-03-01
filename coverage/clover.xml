@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1772070507098" clover="3.2.0">
-  <project timestamp="1772070507098" name="All files">
-    <metrics statements="246" coveredstatements="169" conditionals="99" coveredconditionals="53" methods="89" coveredmethods="46" elements="434" coveredelements="268" complexity="0" loc="246" ncloc="246" packages="6" files="9" classes="9"/>
+<coverage generated="1772392237064" clover="3.2.0">
+  <project timestamp="1772392237064" name="All files">
+    <metrics statements="243" coveredstatements="166" conditionals="95" coveredconditionals="49" methods="88" coveredmethods="45" elements="426" coveredelements="260" complexity="0" loc="243" ncloc="243" packages="6" files="9" classes="9"/>
     <package name="components.common">
-      <metrics statements="47" coveredstatements="39" conditionals="26" coveredconditionals="20" methods="19" coveredmethods="15"/>
+      <metrics statements="46" coveredstatements="38" conditionals="26" coveredconditionals="20" methods="18" coveredmethods="14"/>
       <file name="ChatBot.jsx" path="C:\Users\pc\Desktop\projects simplon\fashion-fuel\src\components\common\ChatBot.jsx">
-        <metrics statements="47" coveredstatements="39" conditionals="26" coveredconditionals="20" methods="19" coveredmethods="15"/>
+        <metrics statements="46" coveredstatements="38" conditionals="26" coveredconditionals="20" methods="18" coveredmethods="14"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="16" type="stmt"/>
         <line num="12" count="16" type="stmt"/>
@@ -49,10 +49,9 @@
         <line num="90" count="0" type="stmt"/>
         <line num="100" count="16" type="stmt"/>
         <line num="106" count="16" type="stmt"/>
-        <line num="110" count="4" type="stmt"/>
-        <line num="131" count="1" type="stmt"/>
-        <line num="140" count="16" type="stmt"/>
-        <line num="167" count="2" type="stmt"/>
+        <line num="110" count="5" type="stmt"/>
+        <line num="133" count="16" type="stmt"/>
+        <line num="160" count="2" type="stmt"/>
       </file>
     </package>
     <package name="context">
@@ -80,9 +79,9 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="78" coveredstatements="61" conditionals="40" coveredconditionals="25" methods="19" coveredmethods="15"/>
+      <metrics statements="76" coveredstatements="59" conditionals="36" coveredconditionals="21" methods="19" coveredmethods="15"/>
       <file name="Admin.jsx" path="C:\Users\pc\Desktop\projects simplon\fashion-fuel\src\pages\Admin.jsx">
-        <metrics statements="22" coveredstatements="20" conditionals="14" coveredconditionals="13" methods="10" coveredmethods="9"/>
+        <metrics statements="20" coveredstatements="18" conditionals="10" coveredconditionals="9" methods="10" coveredmethods="9"/>
         <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
@@ -90,21 +89,19 @@
         <line num="37" count="12" type="stmt"/>
         <line num="38" count="7" type="stmt"/>
         <line num="39" count="7" type="stmt"/>
-        <line num="42" count="7" type="cond" truecount="4" falsecount="0"/>
-        <line num="43" count="2" type="stmt"/>
-        <line num="46" count="5" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="50" count="5" type="stmt"/>
-        <line num="51" count="5" type="cond" truecount="3" falsecount="1"/>
-        <line num="52" count="3" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="59" count="5" type="stmt"/>
-        <line num="61" count="5" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="96" count="1" type="stmt"/>
-        <line num="102" count="1" type="stmt"/>
+        <line num="41" count="7" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="45" count="7" type="stmt"/>
+        <line num="46" count="7" type="cond" truecount="3" falsecount="1"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="54" count="7" type="stmt"/>
+        <line num="56" count="7" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
       </file>
       <file name="Checkout.jsx" path="C:\Users\pc\Desktop\projects simplon\fashion-fuel\src\pages\Checkout.jsx">
         <metrics statements="56" coveredstatements="41" conditionals="26" coveredconditionals="12" methods="9" coveredmethods="6"/>
@@ -272,17 +269,17 @@
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="0"/>
       <file name="api.js" path="C:\Users\pc\Desktop\projects simplon\fashion-fuel\src\services\api.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="0"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
       </file>
     </package>
     <package name="utils">
