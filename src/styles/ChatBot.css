@@ -340,6 +340,39 @@
     cursor: not-allowed;
 }
 
+/* Suggested Questions */
+.suggested-questions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.suggested-q-btn {
+    background: rgba(192, 132, 252, 0.1);
+    border: 1px solid rgba(192, 132, 252, 0.2);
+    color: var(--accent-color);
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suggested-q-btn:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateX(5px);
+}
+
 @media (max-width: 450px) {
     .chatbot-window {
         width: calc(100vw - 40px);

@@ -30,12 +30,19 @@ const ChatBot = () => {
         }
     }, [messages, isTyping, isOpen]);
 
-    const handleSend = async () => {
-        if (!input.trim()) return;
+    const SUGGESTED_QUESTIONS = [
+        "Show me men's products only",
+        "I need a complete outfit for under $200",
+        "What are the best accessories for a wedding?"
+    ];
 
-        const userMessage = { role: 'user', text: input };
+    const handleSend = async (textOverride) => {
+        const messageText = typeof textOverride === 'string' ? textOverride : input;
+        if (!messageText.trim()) return;
+
+        const userMessage = { role: 'user', text: messageText };
         setMessages(prev => [...prev, userMessage]);
-        setInput('');
+        if (typeof textOverride !== 'string') setInput('');
         setIsTyping(true);
 
         // Convert messages to history format for AI
@@ -45,7 +52,7 @@ const ChatBot = () => {
         }));
 
         try {
-            const aiResText = await getAIResponse(input, products, history);
+            const aiResText = await getAIResponse(messageText, products, history);
             setMessages(prev => [...prev, { role: 'ai', text: aiResText }]);
         } catch (error) {
             setMessages(prev => [...prev, { role: 'ai', text: "I'm having trouble thinking right now. Please try again later!" }]);
@@ -139,6 +146,21 @@ const ChatBot = () => {
                                 </div>
                             </div>
                         ))}
+                        
+                        {messages.length === 1 && !isTyping && (
+                            <div className="suggested-questions">
+                                {SUGGESTED_QUESTIONS.map((q, i) => (
+                                    <button 
+                                        key={i} 
+                                        className="suggested-q-btn"
+                                        onClick={() => handleSend(q)}
+                                    >
+                                        {q}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+
                         {isTyping && (
                             <div className="message ai">
                                 <div className="message-avatar">✨</div>

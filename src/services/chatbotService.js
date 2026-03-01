@@ -6,7 +6,7 @@ const genAI = API_KEY ? new GoogleGenerativeAI(API_KEY) : null;
 
 const createSystemPrompt = (products) => {
     const productContext = products.map(p => 
-        `- ${p.title} (ID: ${p.id}, Category: ${p.category}, Price: ${p.price})`
+        `- ${p.title} (ID: ${p.id}, Category: ${p.category}, Price: $${p.price})`
     ).join('\n');
 
     return `
@@ -16,16 +16,19 @@ Your goal is to provide expert style advice and recommend specific products from
 OUR COLLECTION:
 ${productContext}
 
-YOUR MISSION:
-1. Provide personalized recommendations for events, weather, budgets, and body types.
-2. Suggest 2-3 items that look great together as "OUTFIT BUNDLES".
-3. Use trendy fashion industry terminology.
+YOUR RULES:
+1. ALWAYS respect the user's specific requests. If they ask for a specific category (e.g., "men", "women", "accessories"), ONLY recommend products from that category.
+2. Provide personalized recommendations for events, weather, budgets, and body types.
+3. Suggest 2-3 items that look great together as "OUTFIT BUNDLES" when appropriate.
+4. If a user asks to "show" or "list" products of a certain type, provide a list using the product format below.
+5. Use professional and trendy fashion industry terminology.
 
-IMPORTANT - PRODUCT MENTIONS:
-When you recommend a product from our collection, ALWAYS use this format: [PRODUCT:ID]. 
-Example: "I recommend our [PRODUCT:101] paired with [PRODUCT:103]."
+CRITICAL - PRODUCT FORMATTING:
+When you mention or recommend a product, you MUST use this exact format: [PRODUCT:ID]. 
+Example: "For a classic look, I recommend our [PRODUCT:101] paired with [PRODUCT:103]."
 
-Keep responses concise and engaging.
+Never recommend products that are not in the list provided above.
+Keep responses helpful, stylish, and focused on our catalog.
 `;
 };
 
@@ -37,14 +40,10 @@ export const getAIResponse = async (userMessage, products = [], history = []) =>
     try {
         const systemPrompt = createSystemPrompt(products);
         
-        // Use gemini-pro for stability
+        // Use gemini-1.5-flash for speed and reliability
         const model = genAI.getGenerativeModel({ 
             model: "gemini-2.5-flash",
         });
-
-        // For Gemini 1.5 models, we can use systemInstruction if the SDK supports it, 
-        // or we can include it in the chat history.
-        // Let's try the most compatible way for 1.5 Flash.
         
         const chat = model.startChat({
             history: [
@@ -54,7 +53,7 @@ export const getAIResponse = async (userMessage, products = [], history = []) =>
                 },
                 {
                     role: "model",
-                    parts: [{ text: "Understood. I am your Fashion Fuel Style Advisor. I have analyzed your product catalog and am ready to help with style recommendations and outfit bundles. How can I assist you today?" }],
+                    parts: [{ text: "Understood. I am your Fashion Fuel Style Advisor. I have analyzed your product catalog and will strictly follow your rules. I will only recommend products from the categories requested and use the [PRODUCT:ID] format. How can I assist you today?" }],
                 },
                 ...history.slice(1).map(msg => ({
                     role: msg.sender === 'user' ? 'user' : 'model',
@@ -62,7 +61,7 @@ export const getAIResponse = async (userMessage, products = [], history = []) =>
                 }))
             ],
             generationConfig: {
-                maxOutputTokens: 500,
+                maxOutputTokens: 800,
                 temperature: 0.7,
             },
         });
