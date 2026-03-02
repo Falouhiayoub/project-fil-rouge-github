@@ -57,8 +57,9 @@ const Login = () => {
         if (email && password) {
             // For now, accept any non-empty credentials that aren't admin
             if (validateEmail(email)) {
+                const userName = email.split('@')[0];
                 dispatch(login({ email, role: 'user' }));
-                showToast(`Welcome back, ${email}!`);
+                showToast(`Welcome back, ${userName}!`);
                 navigate(from, { replace: true }); 
             } else {
                 setErrors({ email: 'Please enter a valid email for user login' });
@@ -74,9 +75,10 @@ const Login = () => {
         try {
             const decoded = jwtDecode(response.credential);
             const userEmail = decoded.email;
+            const userName = decoded.given_name || decoded.name || userEmail.split('@')[0];
             
             dispatch(login({ email: userEmail, role: 'user' }));
-            showToast(`Welcome back, ${userEmail}!`);
+            showToast(`Welcome back, ${userName}!`);
             navigate(from, { replace: true });
         } catch (error) {
             console.error('Google login decoding error:', error);

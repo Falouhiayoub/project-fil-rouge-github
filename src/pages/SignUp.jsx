@@ -53,8 +53,9 @@ const SignUp = () => {
         }
 
         // Simulate registration
+        const userName = formData.username || formData.email.split('@')[0];
         dispatch(login({ email: formData.email, role: 'user' }));
-        showToast('Account created successfully! Welcome to Fashion Fuel.');
+        showToast(`Account created successfully! Welcome to Fashion Fuel, ${userName}.`);
         navigate('/');
     };
 
@@ -62,9 +63,10 @@ const SignUp = () => {
         try {
             const decoded = jwtDecode(response.credential);
             const userEmail = decoded.email;
+            const userName = decoded.given_name || decoded.name || userEmail.split('@')[0];
             
             dispatch(login({ email: userEmail, role: 'user' }));
-            showToast(`Welcome to Fashion Fuel, ${userEmail}!`);
+            showToast(`Welcome to Fashion Fuel, ${userName}!`);
             navigate('/');
         } catch (error) {
             console.error('Google login decoding error:', error);
