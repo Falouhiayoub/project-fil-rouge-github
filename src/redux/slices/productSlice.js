@@ -5,7 +5,7 @@ import Fuse from 'fuse.js';
 // Async thunks for products
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
-    async (_, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => { // rejectWithValue is a function that returns a custom rejected value
         try {
             const response = await api.get('/products');
             return response.data;
@@ -29,7 +29,7 @@ export const fetchProductById = createAsyncThunk(
 );
 
 const productSlice = createSlice({
-    name: 'products',
+    name: 'products', // action types
     initialState: {
         items: [],
         selectedProduct: null,

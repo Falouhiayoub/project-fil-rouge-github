@@ -105,6 +105,8 @@ const Navbar = () => {
                 </NavLink>
             </div>
 
+            {isMenuOpen && <div className="nav-overlay" onClick={() => setIsMenuOpen(false)}></div>}
+
             <div className="navbar-actions">
                 <button 
                     className="theme-toggle-btn" 
