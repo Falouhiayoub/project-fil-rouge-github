@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
 
     if (adminOnly && role !== 'admin') {
         // If it's an admin-only route and user is not admin, redirect to home or a generic error page
-        return <Navigate to="/" replace />;
+        return <Navigate to="/" replace />; // replace is used to prevent the user from going back to the admin login page
     }
 
     return children;
