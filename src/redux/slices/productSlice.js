@@ -29,7 +29,7 @@ export const fetchProductById = createAsyncThunk(
 );
 
 const productSlice = createSlice({
-    name: 'products', // action types
+    name: 'products', 
     initialState: {
         items: [],
         selectedProduct: null,

@@ -6,12 +6,22 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+checkout_error.txt
+error_log.txt
+
+# Model exploration outputs
+model_detail.txt
+models_clean.txt
+models_output.txt
+models_v1_output.txt
+models.json
 
 node_modules
 dist
 dist-ssr
 *.local
 .env
+env.js
 
 # Editor directories and files
 .vscode/*
